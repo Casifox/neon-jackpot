@@ -516,7 +516,12 @@
     updateOverlay();
     updateHeader();
 
-    resizeObs = new ResizeObserver(() => resize());
+    resizeObs = new ResizeObserver((entries) => {
+      const w = entries[0] ? entries[0].contentRect.width : 0;
+      if (Math.abs(w - (resizeObs._lastW || 0)) < 0.5) return;
+      resizeObs._lastW = w;
+      resize();
+    });
     resizeObs.observe(wrap);
 
     const onClick = (e) => {

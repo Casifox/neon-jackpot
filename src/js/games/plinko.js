@@ -26,6 +26,7 @@
     let H = 0;
     let dpr = 1;
     let resizeObs = null;
+    let lastObservedWidth = 0;
 
     let pegs = [];
     let bins = [];
@@ -1208,7 +1209,10 @@
     renderBetControl();
     updateHeader();
 
-    resizeObs = new ResizeObserver(() => {
+    resizeObs = new ResizeObserver((entries) => {
+      const w = entries[0] ? entries[0].contentRect.width : 0;
+      if (Math.abs(w - lastObservedWidth) < 0.5) return;
+      lastObservedWidth = w;
       if (!destroyed) {
         resize();
         draw(performance.now(), 0);
