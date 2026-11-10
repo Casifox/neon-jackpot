@@ -634,6 +634,61 @@
   }
 
   // ============================================================
+  // LE CROUPIER (secret)
+  // ============================================================
+  function renderCroupier(container) {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const C = D.croupier || { options: [], outcomes: {}, cooldownHours: 20, intro: "" };
+
+    function draw() {
+      const d = App.state.data;
+      const c = d.croupier || { lastRun: 0, visits: 0, lastChoice: null };
+      const cooldown = (C.cooldownHours || 20) * 3600 * 1000;
+      const ready = Date.now() >= (c.lastRun || 0) + cooldown;
+      const remaining = (c.lastRun || 0) + cooldown - Date.now();
+      const lastOption = C.options.find((o) => o.id === c.lastChoice);
+      const choices = C.options.map((o) => `<button class="quest-card" data-croupier="${o.id}" style="text-align:left" ${ready ? "" : "disabled"}>
+        <span class="quest-icon">${o.icon}</span>
+        <span class="quest-main"><span class="quest-title">${h(o.label)}</span><span class="quest-desc" style="display:block;font-size:10px;color:var(--muted-2);line-height:1.4;margin-top:2px">${h(o.desc)}</span></span>
+      </button>`).join("");
+      container.innerHTML = `
+        ${sectionHead("🎩 Le Croupier", "Une audience privée, une fois par jour. Il connaît votre nom, votre solde, et vos mauvaises décisions.", `<span class="badge ${ready ? "gold" : "locked"}">${ready ? "AUDIENCE DISPONIBLE" : "REVENIR DANS " + U.formatCountdown(remaining)}</span>`)}
+        <div class="panel panel-pad" style="max-width:820px;margin:0 auto;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(255,200,87,.09),transparent 65%),rgba(20,18,38,.72)">
+          <div class="modal-hero-icon" style="font-size:34px;width:78px;height:78px">🎩</div>
+          <span class="eyebrow gold">Récit secret</span>
+          <p style="font-size:13px;line-height:1.8;color:var(--text-soft);max-width:620px;margin:10px auto 18px">${h(C.intro)}</p>
+          ${ready ? `<div class="quest-grid" style="text-align:left">${choices}</div>` : `<div class="vault-cooldown">⏳ Le bureau est fermé. Prochaine audience dans <strong>${U.formatCountdown(remaining)}</strong></div>`}
+          ${lastOption && !ready ? `<p class="muted" style="font-size:10.5px;line-height:1.6;margin-top:16px">Dernier choix : <strong style="color:var(--gold)">${h(lastOption.label)}</strong><br>${h(C.outcomes[lastOption.id] || "")}</p>` : ""}
+        </div>
+        <div class="panel panel-pad" style="max-width:820px;margin:16px auto 0;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:24px">🗝️</span>
+          <p class="muted" style="font-size:10.5px;line-height:1.6;flex:1;min-width:220px;margin:0">Le Croupier n'est pas un jeu de mise : c'est un rendez-vous. Chaque audience donne une récompense différente. Les visites sont comptées dans vos succès secrets.</p>
+          <span class="badge gold">${c.visits || 0} audience${ (c.visits || 0) > 1 ? "s" : ""}</span>
+        </div>`;
+    }
+
+    draw();
+
+    container.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-croupier]");
+      if (!btn) return;
+      const result = App.meta.playCroupier(btn.dataset.croupier);
+      if (!result) return;
+      draw();
+      App.ui.modal({
+        title: "Le Croupier",
+        subtitle: result.option.label,
+        className: "modal-sm",
+        body: `<div class="modal-center"><div class="modal-hero-icon" style="font-size:30px">${result.option.icon}</div><p style="font-size:12px;line-height:1.7;color:var(--muted)">${h(result.outcome)}</p><div class="reward-row"><span class="reward-pill">+${U.fmt(result.amount)} ${h(result.unit)}</span></div></div>`,
+        actions: [{ label: "Quitter le bureau", className: "btn-gold" }]
+      });
+    }, { signal });
+
+    return () => controller.abort();
+  }
+
+  // ============================================================
   // PRESTIGE
   // ============================================================
   function renderPrestige(container) {
@@ -694,6 +749,24 @@
         </section>`;
       }).join("");
 
+      const challengeCards = (App.meta.CHALLENGES || []).map((def) => {
+        const claimed = !!d.challenges[def.id];
+        const progress = App.meta.challengeProgress(def);
+        const complete = progress >= def.target;
+        const unlocked = d.maxLevel >= 1000;
+        return `<div class="quest-card ${complete && !claimed ? "ready" : ""} ${claimed ? "claimed" : ""}">
+          <span class="quest-icon">${def.icon || "♾️"}</span>
+          <div class="quest-main">
+            <div class="quest-title">${def.name}</div>
+            <div class="muted" style="font-size:9.5px;line-height:1.4">${def.desc}</div>
+            <div class="quest-progress">${progressBar(U.clamp(progress / def.target, 0, 1), claimed ? "green" : "")}
+              <div class="quest-progress-label"><span>${fmt(Math.min(progress, def.target))} / ${fmt(def.target)}</span><span>+${def.bonus} % permanent</span></div>
+            </div>
+            <div style="margin-top:7px">${claimed ? `<span class="badge" style="color:var(--green);border-color:rgba(74,222,128,.25)">ACCOMPLI</span>` : complete ? (unlocked ? `<button class="btn btn-green btn-sm" data-challenge="${def.id}">Réclamer</button>` : `<span class="badge locked">Niveau 1000 requis</span>`) : `<span class="badge locked">En cours</span>`}</div>
+          </div>
+        </div>`;
+      }).join("");
+
       container.innerHTML = `
         <section class="prestige-hero">
           <span class="eyebrow gold">Prestige</span>
@@ -715,6 +788,9 @@
 
         ${sectionHead("Boutiques de prestige", "Dépensez vos monnaies permanentes. Les achats ne sont jamais perdus.")}
         ${shopPanels}
+
+        ${sectionHead("♾️ Défis de l'infini", "Des objectifs de très long terme, accessibles avec la couche 4.")}
+        <div class="quest-grid">${challengeCards}</div>
 
         <div class="panel panel-pad" style="margin-top:8px;border-color:rgba(255,84,112,.18)">
           <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
@@ -766,6 +842,13 @@
       const shop = e.target.closest("[data-prestige-shop]");
       if (shop) {
         const ok = App.meta.buyPrestigeUpgrade(shop.dataset.prestigeShop, shop.dataset.prestigeId);
+        if (ok) draw();
+        else App.audio.play("error");
+        return;
+      }
+      const challenge = e.target.closest("[data-challenge]");
+      if (challenge) {
+        const ok = App.meta.claimChallenge(challenge.dataset.challenge);
         if (ok) draw();
         else App.audio.play("error");
       }
@@ -963,7 +1046,7 @@
               <div class="settings-main"><div class="settings-name">Volume</div><div class="settings-desc">${Math.round((s.volume || 0.55) * 100)} %</div></div>
               <input type="range" id="setting-volume" min="0" max="100" value="${Math.round((s.volume || 0.55) * 100)}" style="max-width:140px" />
             </div>
-            ${switchRow("autoBuy", "Auto-achat Plinko", autoBuyUnlocked ? "Achète automatiquement les améliorations Plinko les moins chères." : "Achetez l'amélioration « Auto-achat » dans la boutique d'Étoiles.", s.autoBuy, !autoBuyUnlocked)}
+            ${switchRow("autoBuy", "Auto-achat global", autoBuyUnlocked ? "Achète automatiquement l'amélioration la moins chère de tous les jeux débloqués." : "Achetez l'amélioration « Auto-achat global » dans la boutique d'Étoiles.", s.autoBuy, !autoBuyUnlocked)}
             ${switchRow("autoManager", "Gérant virtuel", managerUnlocked ? "Active les automatisations disponibles dans les jeux." : "Débloqué avec une Couronne de prestige.", s.autoManager, !managerUnlocked)}
           </div>
         </section>
@@ -1112,6 +1195,7 @@
       case "achievements": return renderAchievements(container);
       case "collections": return renderCollections(container);
       case "synergies": return renderSynergies(container);
+      case "croupier": return renderCroupier(container);
       case "prestige": return renderPrestige(container);
       case "shop": return renderShop(container);
       case "stats": return renderStats(container);

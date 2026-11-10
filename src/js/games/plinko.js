@@ -45,6 +45,7 @@
     let uiTimer = null;
     let activeTab = "upgrades";
     let destroyed = false;
+    let hiddenAt = 0;
     let sessionWon = g.sessionWon || 0;
     let bestSession = g.bestSessionMult || 1;
 
@@ -1271,8 +1272,35 @@
     };
     App.bus.on("autobuy", onAutoBuy);
 
+    const onVisibility = () => {
+      if (destroyed) return;
+      if (document.hidden) {
+        hiddenAt = performance.now();
+        return;
+      }
+      if (!hiddenAt) return;
+      const away = Math.min(18000, performance.now() - hiddenAt);
+      hiddenAt = 0;
+      if (balls.length) {
+        let remaining = away / 1000;
+        let guard = 0;
+        lastTime = performance.now();
+        while (remaining > 0 && balls.length && guard < 400) {
+          updatePhysics(0.05);
+          remaining -= 0.05;
+          guard++;
+        }
+        updateActive();
+        updateHeader();
+        draw(performance.now(), 0);
+        App.state.saveSoon();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const cleanup = () => {
       destroyed = true;
+      document.removeEventListener("visibilitychange", onVisibility);
       App.bus.off("autobuy", onAutoBuy);
       if (autoTimer) clearInterval(autoTimer);
       if (uiTimer) clearInterval(uiTimer);

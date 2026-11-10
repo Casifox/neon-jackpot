@@ -19,13 +19,14 @@
     achievements: { name: "Succès", sub: "Plus de 200 trophées à décrocher.", icon: "🏆", feature: "achievements" },
     collections: { name: "Collections", sub: "Billes, cartes, tables, avatars et écurie.", icon: "🎴", feature: "collections" },
     synergies: { name: "Synergies", sub: "Quand les jeux se répondent entre eux.", icon: "🔗", feature: "synergies" },
+    croupier: { name: "Le Croupier", sub: "Une histoire dont vous êtes le joueur.", icon: "🎩", feature: "secret" },
     prestige: { name: "Prestige", sub: "Renaître plus fort, encore et encore.", icon: "⭐", feature: null },
     shop: { name: "Boutique", sub: "Dépensez vos gemmes et vos billes d'or.", icon: "🛒", feature: "gems" },
     stats: { name: "Statistiques", sub: "Tout ce que le casino sait de vous.", icon: "📊", feature: "stats" },
     settings: { name: "Réglages", sub: "Son, animations, sauvegarde et confort.", icon: "⚙️", feature: null }
   };
 
-  const NAV_META_ORDER = ["quests", "achievements", "collections", "shop", "synergies", "prestige", "stats", "settings"];
+  const NAV_META_ORDER = ["quests", "achievements", "collections", "shop", "synergies", "croupier", "prestige", "stats", "settings"];
 
   UI.PAGES = PAGES;
   UI.activeRoute = null;
@@ -94,7 +95,7 @@
     App.bus.on("rebirth:done", () => { UI.updateHud(true); UI.updateNav(); UI.refreshPage(); });
     App.bus.on("autobuy", () => UI.updateHud());
 
-    if (UI.els.version) UI.els.version.textContent = "v1.4.1";
+    if (UI.els.version) UI.els.version.textContent = "v1.5.1";
   };
 
   function buildNav() {

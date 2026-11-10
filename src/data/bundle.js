@@ -716,7 +716,7 @@ window.GAME_DATA = {
         "count": 5,
         "multiplier": 1.5
       },
-      "jackpotContribution": 0.01,
+      "jackpotContribution": 0.015,
       "jackpotBase": 5000,
       "machines": [
         {
@@ -1944,6 +1944,44 @@ window.GAME_DATA = {
       }
     ]
   },
+  "croupier": {
+    "cooldownHours": 20,
+    "intro": "La porte est entrouverte. Derrière le rideau de velours, le Croupier mélange un jeu qui ne devrait pas exister. Il vous regarde, sourit, et pose trois objets sur le tapis.",
+    "options": [
+      {
+        "id": "red_door",
+        "label": "La porte rouge",
+        "icon": "🚪",
+        "desc": "Une porte de velours qui sent la poudre et l'encens. Derrière : une bourse de jetons.",
+        "effect": "tokens",
+        "min": 4000,
+        "max": 12000
+      },
+      {
+        "id": "green_glass",
+        "label": "Le verre vert",
+        "icon": "🥃",
+        "desc": "Un verre qui n'a jamais été rempli. Le Croupier y dépose deux dés et une promesse.",
+        "effect": "gems",
+        "min": 8,
+        "max": 22
+      },
+      {
+        "id": "golden_key",
+        "label": "La clé d'or",
+        "icon": "🗝️",
+        "desc": "Une clé trop lourde pour être vraie. Elle ouvre les portes qui n'ont pas encore été dessinées.",
+        "effect": "goldBalls",
+        "min": 1,
+        "max": 3
+      }
+    ],
+    "outcomes": {
+      "red_door": "Le Croupier pousse la porte du bout du doigt. Une pluie de jetons traverse le rideau. « Revenez quand vous aurez appris à perdre. »",
+      "green_glass": "Le verre se remplit de lumière. Deux gemmes roulent sur le tapis, puis trois, puis dix. « La maison paie toujours ses dettes… à sa façon. »",
+      "golden_key": "La clé tourne dans le vide. Quelque part, une serrure s'ouvre. Le Croupier hoche la tête. « Vous commencez à comprendre. »"
+    }
+  },
   "events": {
     "checkEveryMs": [
       180000,
@@ -2068,9 +2106,9 @@ window.GAME_DATA = {
           },
           {
             "id": "autoBuy",
-            "name": "Auto-achat Plinko",
+            "name": "Auto-achat global",
             "icon": "🤖",
-            "desc": "Achète automatiquement les améliorations Plinko les moins chères.",
+            "desc": "Achète automatiquement l'amélioration la moins chère de tous les jeux débloqués.",
             "base": 5,
             "growth": 0,
             "max": 1
@@ -2208,6 +2246,48 @@ window.GAME_DATA = {
             "max": 25
           }
         ]
+      }
+    ],
+    "challenges": [
+      {
+        "id": "ch_plinko_100",
+        "name": "Le mur des multiplicateurs",
+        "icon": "🔻",
+        "desc": "Toucher un ×100 au Plinko et survivre au vertige.",
+        "stat": "games.plinko.stats.bestMult",
+        "target": 100,
+        "bonus": 2,
+        "gems": 10
+      },
+      {
+        "id": "ch_mines_10",
+        "name": "Sang-froid absolu",
+        "icon": "💣",
+        "desc": "Encaisser à ×10 ou plus aux Mines.",
+        "stat": "games.mines.stats.bestMult",
+        "target": 10,
+        "bonus": 2,
+        "gems": 10
+      },
+      {
+        "id": "ch_slots_jackpot",
+        "name": "Le jackpot de l'infini",
+        "icon": "🎰",
+        "desc": "Décrocher le jackpot progressif d'une machine à sous.",
+        "stat": "games.slots.stats.jackpots",
+        "target": 1,
+        "bonus": 3,
+        "gems": 15
+      },
+      {
+        "id": "ch_horses_25",
+        "name": "L'écurie légendaire",
+        "icon": "🐎",
+        "desc": "Gagner 25 courses de chevaux.",
+        "stat": "games.horses.stats.wins",
+        "target": 25,
+        "bonus": 2,
+        "gems": 10
       }
     ]
   },

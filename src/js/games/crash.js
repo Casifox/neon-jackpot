@@ -626,8 +626,25 @@
       // la cible est déjà active
     }
 
+    const onVisibility = () => {
+      if (destroyed || document.hidden) return;
+      if (phase !== "running") return;
+      const elapsed = (performance.now() - startTime) / 1000;
+      const target = g.autoTarget;
+      if ((g.autoCashoutOn || autoMode) && target > 1) {
+        const targetTime = Math.log(target) / CFG.growthRate;
+        const crashTime = Math.log(crashPoint) / CFG.growthRate;
+        if (targetTime <= elapsed && targetTime < crashTime) {
+          currentMult = target;
+          cashout(true);
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const cleanup = () => {
       destroyed = true;
+      document.removeEventListener("visibilitychange", onVisibility);
       if (raf) cancelAnimationFrame(raf);
       raf = null;
       if (countdownTimer) clearInterval(countdownTimer);

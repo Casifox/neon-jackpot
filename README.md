@@ -14,7 +14,17 @@
 
 > **Aucun argent réel.** Toutes les monnaies sont virtuelles. Aucun lien avec de vrais paris, aucune boutique payante, aucune publicité.
 
-## 🔧 Dernières corrections (v1.4.1)
+## 🔧 Dernières corrections (v1.5.1)
+
+- **Auto-achat global** : l'auto-achat quitte le Plinko et achète maintenant l'amélioration la moins chère de tous les jeux débloqués, avec un budget de 15 % du solde.
+- **Manches en arrière-plan** : Plinko rattrape les billes tombées pendant une absence, Crash encaisse au seuil prévu, la Roulette termine son tour et les Chevaux terminent leur course au retour sur l'onglet.
+- **Jackpot et free spins** : le jackpot tombe sur n'importe quelle ligne de 5 symboles identiques (jokers inclus) et contribue à 1,5 % ; les free spins restent à 5 tours ×1,5 avec scatters 2× / 4× / 8×.
+- **Tournoi équestre** : bouton **⏭ Accélérer** pendant chaque course et attente entre les manches réduite à 1,2 s.
+- **Contenu secret** : nouvelle page **Le Croupier** (niveau 750), audiences quotidiennes, récompenses et succès dédiés.
+- **Couche 4** : quatre défis de l'infini réclamables au niveau 1000, avec bonus de gains permanents et gemmes.
+- **Corrections** : couleurs HSL du Plinko, console propre (ResizeObserver filtré), modales et libellés.
+
+## 🔧 Corrections précédentes (v1.4.1)
 
 - **Équilibrage des machines à sous** : le retour de ligne est normalisé (environ 92 % sur 3 rouleaux, 82 % hors free spins sur 5 rouleaux) au lieu d'un RTP de 40 % au début et 123 % en fin de progression.
 - **Auto sécurisé** : les automatisations ne reprennent plus toutes seules après un rechargement.

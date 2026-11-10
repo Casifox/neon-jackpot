@@ -151,6 +151,8 @@
 
     // Repère les erreurs d'exécution sans bloquer le jeu
     window.addEventListener("error", (e) => {
+      const msg = String(e.message || (e.error && e.error.message) || "");
+      if (msg.includes("ResizeObserver loop")) return;
       console.error("[neon]", e.error || e.message);
     });
 

@@ -841,7 +841,19 @@
 
     updateHeader();
 
+    const onVisibility = () => {
+      if (document.hidden || !spinning || !spinState) return;
+      if (performance.now() - spinState.start < spinState.duration) return;
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+      wheelRotation = spinState.rotEnd;
+      drawWheel(wheelRotation, idleBalls(), null);
+      finishSpin();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const cleanup = () => {
+      document.removeEventListener("visibilitychange", onVisibility);
       if (raf) cancelAnimationFrame(raf);
       raf = null;
       if (autoTimer) clearTimeout(autoTimer);

@@ -278,7 +278,7 @@
           raceTimer = setTimeout(() => {
             raceTimer = null;
             if (!destroyed && tournament) startRace({ skipBet: true });
-          }, 2100);
+          }, 1200);
           return;
         }
         // Fin du tournoi
@@ -406,6 +406,7 @@
         <div class="bet-stepper"><button class="bet-step" data-horse-bet="-1" ${racing ? "disabled" : ""}>−</button><button class="bet-step" data-horse-bet="1" ${racing ? "disabled" : ""}>+</button></div>
         <div class="bet-display" style="padding:6px 10px"><span class="chip-symbol">🐎</span><div><span class="bet-label">Mise · ${selected.name}</span><strong>${U.fmt(bet)}</strong></div></div>
         <button class="btn btn-primary" data-horse-start ${racing || tournament ? "disabled" : ""} style="flex:1;min-width:130px;min-height:44px">${racing ? "Course en cours…" : "Lancer la course · ×" + oddsFor(horses().indexOf(selected)).toFixed(2)}</button>
+        ${racing ? `<button class="btn btn-ghost" data-horse-skip>⏭ Accélérer</button>` : ""}
         ${g.upgrades.tournament ? `<button class="btn btn-gold" data-horse-tournament ${racing || tournament ? "disabled" : ""}>🏆 Tournoi ×3</button>` : ""}
         <button class="btn ${g.autoOn ? "btn-cyan" : "btn-ghost"}" data-horse-auto ${racing || tournament ? "disabled" : ""}>${g.autoOn ? "⏸ Auto" : "▶ Auto"}</button>`;
       if (lastResult && phase === "done") {
@@ -547,6 +548,10 @@
         if (phase !== "racing" && !tournament) startRace();
         return;
       }
+      if (e.target.closest("[data-horse-skip]")) {
+        if (phase === "racing" && raceState) finishRace();
+        return;
+      }
       if (e.target.closest("[data-horse-tournament]")) {
         startTournament();
         return;
@@ -628,8 +633,17 @@
       renderHorsePanel(); renderControls(); renderSide();
     }
 
+    const onVisibility = () => {
+      if (destroyed || document.hidden) return;
+      if (phase === "racing" && raceState && performance.now() - raceState.start >= raceState.duration + 600) {
+        finishRace();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const cleanup = () => {
       destroyed = true;
+      document.removeEventListener("visibilitychange", onVisibility);
       if (raf) cancelAnimationFrame(raf);
       raf = null;
       if (raceTimer) clearTimeout(raceTimer);

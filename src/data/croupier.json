@@ -1,0 +1,38 @@
+{
+  "cooldownHours": 20,
+  "intro": "La porte est entrouverte. Derrière le rideau de velours, le Croupier mélange un jeu qui ne devrait pas exister. Il vous regarde, sourit, et pose trois objets sur le tapis.",
+  "options": [
+    {
+      "id": "red_door",
+      "label": "La porte rouge",
+      "icon": "🚪",
+      "desc": "Une porte de velours qui sent la poudre et l'encens. Derrière : une bourse de jetons.",
+      "effect": "tokens",
+      "min": 4000,
+      "max": 12000
+    },
+    {
+      "id": "green_glass",
+      "label": "Le verre vert",
+      "icon": "🥃",
+      "desc": "Un verre qui n'a jamais été rempli. Le Croupier y dépose deux dés et une promesse.",
+      "effect": "gems",
+      "min": 8,
+      "max": 22
+    },
+    {
+      "id": "golden_key",
+      "label": "La clé d'or",
+      "icon": "🗝️",
+      "desc": "Une clé trop lourde pour être vraie. Elle ouvre les portes qui n'ont pas encore été dessinées.",
+      "effect": "goldBalls",
+      "min": 1,
+      "max": 3
+    }
+  ],
+  "outcomes": {
+    "red_door": "Le Croupier pousse la porte du bout du doigt. Une pluie de jetons traverse le rideau. « Revenez quand vous aurez appris à perdre. »",
+    "green_glass": "Le verre se remplit de lumière. Deux gemmes roulent sur le tapis, puis trois, puis dix. « La maison paie toujours ses dettes… à sa façon. »",
+    "golden_key": "La clé tourne dans le vide. Quelque part, une serrure s'ouvre. Le Croupier hoche la tête. « Vous commencez à comprendre. »"
+  }
+}

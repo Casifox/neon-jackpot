@@ -338,6 +338,7 @@
     mult += Meta.collectionBonus("tables");
     mult += (App.state.data.shopUpgrades.globalBoost || 0) * 0.05;
     mult += (App.state.data.synergies.permanent || 0) / 100;
+    mult += (App.state.data.challengeBonus || 0) / 100;
     mult += Meta.buffValue("global") / 100;
     mult *= Meta.activeEventMult();
     return mult;
@@ -773,6 +774,32 @@
         tier: tierOf(i + 2),
         target: n,
         progress: () => App.state.data.games.vault.stats.wins
+      });
+    });
+
+    [1, 5, 20].forEach((n, i) => {
+      addAch({
+        id: `croupier_${n}`,
+        name: "Audience " + n + " chez le Croupier",
+        desc: `Rendre visite ${n} fois au Croupier.`,
+        icon: "🎩",
+        category: "secrets",
+        tier: tierOf(i + 1),
+        target: n,
+        progress: () => App.state.data.croupier.visits
+      });
+    });
+
+    [1, 2, 4].forEach((n, i) => {
+      addAch({
+        id: `challenges_${n}`,
+        name: "Défis de l'infini " + n,
+        desc: `Accomplir ${n} défis de la couche 4.`,
+        icon: "♾️",
+        category: "prestige",
+        tier: tierOf(i + 1),
+        target: n,
+        progress: () => Object.keys(App.state.data.challenges).length
       });
     });
 
@@ -1221,6 +1248,87 @@
   // PRESTIGE
   // ============================================================
   Meta.PRESTIGE_LAYERS = PREST.layers;
+  Meta.CHALLENGES = PREST.challenges || [];
+
+  Meta.challengeProgress = function (def) {
+    const value = U.getPath(App.state.data, def.stat);
+    return Math.max(0, Number(value) || 0);
+  };
+
+  Meta.challengeComplete = function (def) {
+    return Meta.challengeProgress(def) >= def.target;
+  };
+
+  Meta.claimChallenge = function (id) {
+    const def = Meta.CHALLENGES.find((c) => c.id === id);
+    if (!def) return false;
+    const d = App.state.data;
+    if (d.challenges[id] || !Meta.challengeComplete(def)) return false;
+    d.challenges[id] = Date.now();
+    d.challengeBonus = (d.challengeBonus || 0) + (def.bonus || 0);
+    Meta.grant("gems", def.gems || 0, { silent: true });
+    App.audio.play("jackpot");
+    App.fx.jackpot();
+    toast("Défi accompli : " + def.name, "+" + def.bonus + " % de gains permanents · +" + (def.gems || 0) + " gemmes", def.icon || "♾️", "gold");
+    App.state.log(def.icon || "♾️", "Défi accompli", def.name);
+    App.bus.emit("challenge:claim", def);
+    Meta.checkAchievements();
+    Meta.saveSoon();
+    return true;
+  };
+
+  // ============================================================
+  // LE CROUPIER (secret)
+  // ============================================================
+  Meta.croupierCooldownMs = function () {
+    return (D.croupier?.cooldownHours || 20) * 3600 * 1000;
+  };
+
+  Meta.croupierReady = function () {
+    return Date.now() >= (App.state.data.croupier.lastRun || 0) + Meta.croupierCooldownMs();
+  };
+
+  Meta.playCroupier = function (optionId) {
+    const c = D.croupier;
+    if (!c) return null;
+    if (!Meta.canUseFeature("secret")) {
+      toast("Le Croupier vous ignore", "Atteignez le niveau 750 pour entrer dans son bureau.", "🎩", "danger");
+      return null;
+    }
+    if (!Meta.croupierReady()) {
+      toast("Le Croupier est occupé", "Revenez dans " + U.formatCountdown((App.state.data.croupier.lastRun || 0) + Meta.croupierCooldownMs() - Date.now()) + ".", "🎩", "");
+      return null;
+    }
+    const option = c.options.find((o) => o.id === optionId);
+    if (!option) return null;
+    const d = App.state.data;
+    let amount = 0;
+    let unit = "jetons";
+    if (option.effect === "tokens") {
+      amount = Math.floor(U.rand(option.min, option.max) * (1 + d.level * 0.35));
+      Meta.bonus(amount, { silent: true });
+      unit = "jetons";
+    } else if (option.effect === "gems") {
+      amount = U.randInt(option.min, option.max);
+      Meta.grant("gems", amount, { silent: true });
+      unit = "gemmes";
+    } else if (option.effect === "goldBalls") {
+      amount = U.randInt(option.min, option.max);
+      Meta.grant("goldBalls", amount, { silent: true });
+      unit = "billes d'or";
+    }
+    d.croupier.lastRun = Date.now();
+    d.croupier.lastChoice = option.id;
+    d.croupier.visits = (d.croupier.visits || 0) + 1;
+    const outcome = c.outcomes[option.id] || "Le Croupier hoche la tête.";
+    App.audio.play("chest");
+    App.fx.confetti(45);
+    App.state.log("🎩", "Audience chez le Croupier", "+" + U.fmt(amount) + " " + unit);
+    Meta.checkAchievements();
+    Meta.saveSoon();
+    return { option, amount, unit, outcome };
+  };
+
 
   Meta.layerCurrency = function (index) {
     return PREST.layers[index] ? PREST.layers[index].currency : "stars";
@@ -1557,31 +1665,34 @@
   Meta.autoBuyTick = function () {
     if (!Meta.autoBuyUnlocked() || !App.state.data.settings.autoBuy) return;
     const d = App.state.data;
-    const game = d.games.plinko;
-    const plinko = BAL.plinko;
     const budget = d.tokens * 0.15;
     const candidates = [];
-    const levelCost = (def, level) => Math.ceil(def.base * Math.pow(def.growth, level));
-    if (game.upgrades.balls < plinko.upgrades.balls.max) {
-      candidates.push({ key: "balls", cost: levelCost(plinko.upgrades.balls, game.upgrades.balls) });
-    }
-    if (game.upgrades.rows < plinko.upgrades.rows.max) {
-      candidates.push({ key: "rows", cost: levelCost(plinko.upgrades.rows, game.upgrades.rows) });
-    }
-    if (game.upgrades.speed < plinko.upgrades.speed.max) {
-      candidates.push({ key: "speed", cost: levelCost(plinko.upgrades.speed, game.upgrades.speed) });
-    }
-    if (game.upgrades.mult < plinko.upgrades.mult.costs.length) {
-      candidates.push({ key: "mult", cost: plinko.upgrades.mult.costs[game.upgrades.mult] });
-    }
+    GAME_IDS.forEach((gameId) => {
+      if (!Meta.isGameUnlocked(gameId) || !d.games[gameId] || !d.games[gameId].upgrades) return;
+      const cfg = BAL[gameId]?.upgrades;
+      if (!cfg) return;
+      Object.keys(cfg).forEach((key) => {
+        const def = cfg[key];
+        if (!def) return;
+        const level = d.games[gameId].upgrades[key] || 0;
+        const max = def.costs ? def.costs.length : (def.max || 1);
+        if (level >= max) return;
+        const cost = def.costs
+          ? def.costs[level]
+          : (def.cost !== undefined ? def.cost : Math.ceil(def.base * Math.pow(def.growth, level)));
+        if (!cost || cost <= 0 || cost > budget || cost > d.tokens) return;
+        candidates.push({ gameId, key, cost, level });
+      });
+    });
     candidates.sort((a, b) => a.cost - b.cost);
-    const pickOne = candidates.find((c) => c.cost <= budget && c.cost <= d.tokens);
-    if (pickOne) {
-      Meta.spend("tokens", pickOne.cost);
-      game.upgrades[pickOne.key] += 1;
-      App.bus.emit("autobuy", { key: pickOne.key });
-      Meta.saveSoon();
-    }
+    const pickOne = candidates[0];
+    if (!pickOne) return;
+    if (!Meta.spend("tokens", pickOne.cost)) return;
+    d.games[pickOne.gameId].upgrades[pickOne.key] = pickOne.level + 1;
+    App.bus.emit("autobuy", { game: pickOne.gameId, key: pickOne.key, cost: pickOne.cost });
+    App.state.log("🤖", "Auto-achat — " + Meta.gameName(pickOne.gameId), "Niv. " + (pickOne.level + 1));
+    if (App.ui && App.ui.updateHud) App.ui.updateHud();
+    Meta.saveSoon();
   };
 
   // ============================================================

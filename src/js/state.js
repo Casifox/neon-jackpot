@@ -207,6 +207,9 @@
       },
       shopUpgrades: { plinkoLuck: 0, xpBoost: 0, globalBoost: 0 },
       synergies: { unlocked: {}, lastTrigger: {}, permanent: 0 },
+      challenges: {},
+      challengeBonus: 0,
+      croupier: { lastRun: 0, lastChoice: null, visits: 0 },
       buffs: [],
       charges: { radar: 0, crashSafety: 0, goldenCard: 0, rainbow: 0, freePlinko: 0 },
       prestige: {

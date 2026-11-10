@@ -264,6 +264,7 @@
   U.hexToRgba = function (hex, alpha) {
     if (!hex) return `rgba(255,255,255,${alpha})`;
     if (hex.startsWith("rgb")) return hex;
+    if (hex.startsWith("hsl")) return hex.replace("hsl(", "hsla(").replace(")", `, ${alpha})`);
     const h = hex.replace("#", "");
     const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
     const r = parseInt(full.slice(0, 2), 16);

@@ -295,7 +295,7 @@
           wins.push(res);
           totalWin += res.amount;
           res.cells.forEach((c) => hitSet.add(c));
-          if (res.target === "seven" && res.count === 5 && g.upgrades.jackpot && !jackpotTriggered) {
+          if (res.count === 5 && g.upgrades.jackpot && !jackpotTriggered) {
             jackpotTriggered = true;
           }
         }
@@ -629,7 +629,7 @@
         content.innerHTML = `<div class="panel"><div class="panel-head"><h3>💎 Table des gains</h3><span class="panel-hint">× mise/ligne</span></div><div class="panel-body">${rows}
           <div class="divider"></div>
           <p class="muted" style="font-size:9.5px;line-height:1.6"><strong style="color:var(--gold)">Valeurs ajustées :</strong> le retour de ligne vise ${Math.round((CFG.lineRTP?.[String(reels())] || (reels() === 3 ? 0.92 : 0.82)) * 100)} % hors free spins. Les scatters ajoutent 2× / 4× / 8× la mise totale et déclenchent ${CFG.freeSpins.count} tours gratuits ×${CFG.freeSpins.multiplier}.</p>
-          <p class="muted" style="font-size:9.5px;line-height:1.6;margin-top:5px"><strong style="color:var(--gold)">Jackpot :</strong> 5 sept alignés. Le jackpot grossit de 1 % de chaque mise.</p>
+          <p class="muted" style="font-size:9.5px;line-height:1.6;margin-top:5px"><strong style="color:var(--gold)">Jackpot :</strong> 5 symboles identiques sur une ligne (jokers inclus). Le jackpot grossit de 1,5 % de chaque mise.</p>
         </div></div>`;
       }
     }

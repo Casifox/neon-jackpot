@@ -145,7 +145,7 @@
     "scatterPays": { "3": 2, "4": 4, "5": 8 },
     "lineRTP": { "3": 0.92, "5": 0.82 },
     "freeSpins": { "trigger": 3, "count": 5, "multiplier": 1.5 },
-    "jackpotContribution": 0.01,
+    "jackpotContribution": 0.015,
     "jackpotBase": 5000,
     "machines": [
       { "id": "fruits", "name": "Fruits Paradise", "icon": "🍒", "unlock": 30, "accent": "#fb7185", "icons": { "cherry": "🍒", "lemon": "🍋", "bell": "🔔", "star": "⭐", "seven": "7️⃣", "diamond": "💎", "wild": "🃏", "scatter": "🎁" } },
