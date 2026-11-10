@@ -38,7 +38,8 @@
       bestHits: 0,
       royals: 0,
       bestStreak: 0,
-      streak: 0
+      streak: 0,
+      crashes: 0
     }, extra || {});
   }
 

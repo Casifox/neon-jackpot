@@ -145,7 +145,7 @@
       phase = "crashed";
       currentMult = crashPoint;
       points.push({ t: Math.max(0, (performance.now() - startTime) / 1000), m: crashPoint });
-      g.stats.crashes += 1;
+      g.stats.crashes = (g.stats.crashes || 0) + 1;
       g.history.unshift(crashPoint);
       if (g.history.length > 14) g.history.length = 14;
       App.meta.loss("crash", { silent: true });
@@ -231,7 +231,7 @@
       } else if (phase === "running") {
         multEl.textContent = U.fmtMult(currentMult);
         if (currentMult >= 5) multEl.classList.add("hot");
-        subEl.textContent = g.autoCashout && g.autoCashoutOn ? "Encaissement auto à " + U.fmtMult(g.autoTarget) : "Cliquez pour encaisser";
+        subEl.textContent = (autoMode || (g.autoCashout && g.autoCashoutOn)) ? "Encaissement auto à " + U.fmtMult(g.autoTarget) : "Cliquez pour encaisser";
         const btn = container.querySelector("[data-crash-cashout]");
         if (btn) btn.innerHTML = `💰 Encaisser · ${U.fmtMult(currentMult)}`;
         if (badgeEl) badgeEl.textContent = "GAIN ACTUEL : 🪙 " + U.fmt(stake * currentMult);
@@ -428,7 +428,7 @@
       if (plays) plays.textContent = U.fmt(g.stats.plays);
       if (wins) wins.textContent = U.fmt(g.stats.wins);
       if (best) best.textContent = U.fmtMult(g.stats.bestMult || 1);
-      if (crashes) crashes.textContent = U.fmt(g.stats.crashes);
+      if (crashes) crashes.textContent = U.fmt(g.stats.crashes || 0);
     }
 
     function renderSide() {

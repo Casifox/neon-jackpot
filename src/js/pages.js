@@ -941,7 +941,7 @@
             ${switchRow("sound", "Son", "Effets sonores synthétisés, aucun fichier audio externe.", s.sound)}
             ${switchRow("reducedMotion", "Réduire les animations", "Diminue les particules, secousses et transitions.", s.reducedMotion)}
             ${switchRow("pauseReminder", "Rappel de pause", "Un message amical après 2 h de jeu continu.", s.pauseReminder)}
-            ${switchRow("autoSave", "Sauvegarde automatique", "Sauvegarde locale toutes les 10 secondes.", s.autoSave)}
+            ${switchRow("autoSave", "Sauvegarde périodique", "Sauvegarde toutes les 15 s. Les actions importantes restent sauvegardées.", s.autoSave)}
             <div class="settings-row">
               <div class="settings-main"><div class="settings-name">Qualité des particules</div><div class="settings-desc">Plus bas = plus fluide sur les petits appareils.</div></div>
               <select class="input" id="setting-quality" style="width:120px;min-height:34px;font-size:10.5px">

@@ -94,7 +94,7 @@
     App.bus.on("rebirth:done", () => { UI.updateHud(true); UI.updateNav(); UI.refreshPage(); });
     App.bus.on("autobuy", () => UI.updateHud());
 
-    if (UI.els.version) UI.els.version.textContent = "v1.3.3";
+    if (UI.els.version) UI.els.version.textContent = "v1.3.4";
   };
 
   function buildNav() {

@@ -772,7 +772,7 @@
           else if (key === "peek") levelText = level ? "Active" : "Non";
           else if (key === "counter") levelText = level ? "Compteur actif" : "Non";
           else if (key === "split") levelText = level ? "Actif" : "Non";
-          else if (key === "multiHand") levelText = maxHands() + " mains max";
+          else if (key === "multiHand") levelText = maxHands() + " main" + (maxHands() > 1 ? "s" : "") + " max";
           else if (key === "auto") levelText = level ? "Stratégie active" : "Auto de base offert";
           else if (key === "specials") levelText = level ? "Joker / Or / Feu" : "Non";
           else if (key === "vip") levelText = level ? "+10 % de gains" : "Non";
