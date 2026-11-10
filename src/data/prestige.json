@@ -13,7 +13,7 @@
         { "id": "plinkoLuck", "name": "Chance stellaire", "icon": "🍀", "desc": "+2 % de chance de bords au Plinko.", "base": 1, "growth": 1, "max": 20 },
         { "id": "startTokens", "name": "Caisse de départ", "icon": "🎒", "desc": "+10 000 jetons au début de chaque run.", "base": 2, "growth": 2, "max": 20 },
         { "id": "offline", "name": "Veille prolongée", "icon": "🌙", "desc": "+2 h de gains hors-ligne.", "base": 2, "growth": 2, "max": 11 },
-        { "id": "autoBuy", "name": "Auto-achat", "icon": "🤖", "desc": "Achète automatiquement les améliorations prioritaires.", "base": 5, "growth": 0, "max": 1 },
+        { "id": "autoBuy", "name": "Auto-achat Plinko", "icon": "🤖", "desc": "Achète automatiquement les améliorations Plinko les moins chères.", "base": 5, "growth": 0, "max": 1 },
         { "id": "gemBonus", "name": "Chercheur de gemmes", "icon": "💎", "desc": "+10 % de gemmes gagnées.", "base": 3, "growth": 2, "max": 10 }
       ]
     },

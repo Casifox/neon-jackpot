@@ -94,7 +94,7 @@
     App.bus.on("rebirth:done", () => { UI.updateHud(true); UI.updateNav(); UI.refreshPage(); });
     App.bus.on("autobuy", () => UI.updateHud());
 
-    if (UI.els.version) UI.els.version.textContent = "v1.3.4";
+    if (UI.els.version) UI.els.version.textContent = "v1.4.1";
   };
 
   function buildNav() {
@@ -568,7 +568,14 @@
     opts = opts || {};
     const root = UI.els.modalRoot;
     if (!root) return null;
-    if (UI.currentModal) UI.closeModal(true);
+    if (UI.currentModal) {
+      const old = UI.currentModal;
+      old.close(true);
+      root.querySelectorAll(".modal, .modal-backdrop").forEach((node) => node.remove());
+      UI.currentModal = null;
+      root.classList.remove("open");
+      document.body.classList.remove("modal-open");
+    }
     const wrap = document.createElement("div");
     wrap.className = "modal-backdrop";
     const modal = document.createElement("div");

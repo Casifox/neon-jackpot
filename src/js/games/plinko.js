@@ -1261,8 +1261,19 @@
     raf = requestAnimationFrame(loop);
     updateFreeIndicator();
 
+    const onAutoBuy = () => {
+      if (destroyed) return;
+      layout();
+      renderSide();
+      renderBetControl();
+      updateHeader();
+      App.state.saveSoon();
+    };
+    App.bus.on("autobuy", onAutoBuy);
+
     const cleanup = () => {
       destroyed = true;
+      App.bus.off("autobuy", onAutoBuy);
       if (autoTimer) clearInterval(autoTimer);
       if (uiTimer) clearInterval(uiTimer);
       if (raf) cancelAnimationFrame(raf);

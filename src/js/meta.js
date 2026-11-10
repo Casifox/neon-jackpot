@@ -1292,7 +1292,11 @@
       if (game.betIndex !== undefined) game.betIndex = 0;
       if (game.autoOn !== undefined) game.autoOn = false;
       if (game.autoSpins !== undefined) game.autoSpins = 0;
+      if (game.autoMode !== undefined) game.autoMode = false;
+      if (game.autoBet !== undefined) game.autoBet = false;
+      if (game.bossPending !== undefined) game.bossPending = false;
       if (game.freeSpinsLeft !== undefined) game.freeSpinsLeft = 0;
+      if (game.freeSpinBet !== undefined) game.freeSpinBet = 0;
       if (game.streak !== undefined) game.streak = 0;
       if (game.winsTowardBoss !== undefined) game.winsTowardBoss = 0;
       if (game.radarCharges !== undefined) game.radarCharges = 0;
@@ -1311,6 +1315,7 @@
     d.charges.goldenCard = 0;
     d.charges.rainbow = 0;
     d.charges.freePlinko = 0;
+    d.charges.radar = 0;
     d.stats.playTimeMs = d.stats.playTimeMs || 0;
     Meta.refreshUnlocks(true);
     Meta.ensureQuests(false);

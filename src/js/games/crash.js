@@ -213,7 +213,7 @@
           return;
         }
         startRound();
-      }, 2300);
+      }, g.upgrades.autobet ? 1300 : 2300);
     }
 
     function updateOverlay() {

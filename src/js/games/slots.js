@@ -101,6 +101,62 @@
       return [randomSymbol(), randomSymbol(), randomSymbol()];
     }
 
+    // ---------- Normalisation des gains ----------
+    // Le paiement d'une ligne est ajusté pour viser un retour proche de 92 % (3 rouleaux)
+    // ou 82 % (5 rouleaux) hors scatters / tours gratuits de l'upgrade.
+    let payScaleCache = new Map();
+
+    function rawLinePay(symbols) {
+      if (symbols[0] === "scatter") return 0;
+      let target = null;
+      for (const s of symbols) {
+        if (s !== "wild" && s !== "scatter") { target = s; break; }
+      }
+      if (!target) target = "wild";
+      let count = 0;
+      for (const s of symbols) {
+        if (s === target || (s === "wild" && target !== "wild")) count++;
+        else break;
+      }
+      if (count < 3) return 0;
+      return CFG.paytable[target]?.pay[String(count)] || 0;
+    }
+
+    function lineRawEV(n) {
+      const key = n + ":" + (g.upgrades.wild ? 1 : 0) + ":" + (g.upgrades.freeSpins ? 1 : 0);
+      if (payScaleCache.has(key)) return payScaleCache.get(key);
+      const ids = eligibleSymbols();
+      const weights = ids.map((id) => WEIGHTS[id] || 1);
+      const total = weights.reduce((a, b) => a + b, 0);
+      let ev = 0;
+      const seq = [];
+      const walk = (depth, prob) => {
+        if (depth === n) {
+          ev += prob * rawLinePay(seq);
+          return;
+        }
+        for (let i = 0; i < ids.length; i++) {
+          seq.push(ids[i]);
+          walk(depth + 1, prob * weights[i] / total);
+          seq.pop();
+        }
+      };
+      walk(0, 1);
+      payScaleCache.set(key, ev);
+      return ev;
+    }
+
+    function lineScale() {
+      const target = CFG.lineRTP?.[String(reels())] || (reels() === 3 ? 0.92 : 0.82);
+      const ev = lineRawEV(reels());
+      return ev > 0 ? target / ev : 1;
+    }
+
+    function payFor(target, count) {
+      const raw = CFG.paytable[target]?.pay[String(count)] || 0;
+      return raw * lineScale();
+    }
+
     function generateGrid(keepLocked) {
       const n = reels();
       const out = [];
@@ -155,7 +211,7 @@
             <button class="btn btn-primary slot-spin-btn" data-slot-spin ${spinning ? "disabled" : ""}>${free ? "Tour gratuit (" + g.freeSpinsLeft + ")" : "Lancer"}</button>
             ${g.autoSpins > 0
               ? `<button class="btn btn-cyan btn-sm" data-slot-stop-auto>⏸ Auto ${g.autoSpins}</button>`
-              : `<button class="btn btn-ghost btn-sm" data-slot-auto="10">▶ 10</button><button class="btn btn-ghost btn-sm" data-slot-auto="25">▶ 25</button><button class="btn btn-ghost btn-sm" data-slot-auto="50">▶ 50</button>`}
+              : `<button class="btn btn-ghost btn-sm" data-slot-auto="10">▶ 10</button>${g.upgrades.autospin ? `<button class="btn btn-ghost btn-sm" data-slot-auto="25">▶ 25</button><button class="btn btn-ghost btn-sm" data-slot-auto="50">▶ 50</button>` : ""}`}
           </div>
           <div class="slot-info-row">
             <span>🎯 ${lineCount()} ligne${lineCount() > 1 ? "s" : ""} · mise/ligne 🪙 ${U.fmt(lineBet(currentBet()))}</span>
@@ -220,7 +276,7 @@
       if (count < 3) return null;
       const paytable = CFG.paytable[target];
       if (!paytable) return null;
-      const pay = paytable.pay[String(count)];
+      const pay = payFor(target, count);
       if (!pay) return null;
       const amount = lineBet(bet) * pay * freeMult;
       return { target, count, amount, cells: Array.from({ length: count }, (_, i) => i + ":" + rowPattern[i]) };
@@ -252,7 +308,8 @@
       }
       let scatterPay = 0;
       if (scatterCount >= 3) {
-        scatterPay = bet * ({ 3: 3, 4: 8, 5: 25 }[scatterCount] || 25) * freeMult;
+        const pays = CFG.scatterPays || { 3: 2, 4: 4, 5: 8 };
+        scatterPay = bet * (pays[String(Math.min(5, scatterCount))] || 8) * freeMult;
         totalWin += scatterPay;
       }
       let jackpotAmount = 0;
@@ -533,10 +590,10 @@
           let label = "";
           if (key === "maxBet") label = "Mise max " + U.fmt(betOptions()[betOptions().length - 1]);
           else if (key === "wild") label = level ? "Actif" : "Non";
-          else if (key === "freeSpins") label = level ? "3 scatters → 10 tours ×2" : "Non";
+          else if (key === "freeSpins") label = level ? "3 scatters → " + CFG.freeSpins.count + " tours ×" + CFG.freeSpins.multiplier : "Non";
           else if (key === "bonus") label = level ? "Coffres bonus" : "Non";
           else if (key === "jackpot") label = level ? "Actif · " + U.fmt(g.jackpot) : "Non";
-          else if (key === "autospin") label = level ? "Auto rapide" : "Auto de base offert";
+          else if (key === "autospin") label = level ? "25 / 50 tours" : "10 tours (inclus)";
           else if (key === "lock") label = level ? "Rouleaux verrouillables" : "Non";
           else if (key === "reels") label = level ? "5 rouleaux" : "3 rouleaux";
           else if (key === "lines") label = lineCount() + " lignes";
@@ -563,11 +620,15 @@
         const rows = Object.keys(CFG.paytable).map((id) => {
           const def = CFG.paytable[id];
           const icon = iconFor(id);
-          return `<div class="paytable"><span class="pt-name">${icon} ${def.name}</span><span class="pt-mult">3× ${def.pay["3"] || "—"} · 4× ${def.pay["4"] || "—"} · 5× ${def.pay["5"] || "—"}</span></div>`;
+          const p3 = payFor(id, 3);
+          const p4 = payFor(id, 4);
+          const p5 = payFor(id, 5);
+          const fmtPay = (v) => v > 0 ? (v >= 10 ? Math.round(v) : v.toFixed(1)) : "—";
+          return `<div class="paytable"><span class="pt-name">${icon} ${def.name}</span><span class="pt-mult">3× ${fmtPay(p3)} · 4× ${fmtPay(p4)} · 5× ${fmtPay(p5)}</span></div>`;
         }).join("");
         content.innerHTML = `<div class="panel"><div class="panel-head"><h3>💎 Table des gains</h3><span class="panel-hint">× mise/ligne</span></div><div class="panel-body">${rows}
           <div class="divider"></div>
-          <p class="muted" style="font-size:9.5px;line-height:1.6"><strong style="color:var(--gold)">Scatters :</strong> 3 = 3× mise totale, 4 = 8×, 5 = 25×. Déclenchent 10 tours gratuits ×2 si débloqué.</p>
+          <p class="muted" style="font-size:9.5px;line-height:1.6"><strong style="color:var(--gold)">Valeurs ajustées :</strong> le retour de ligne vise ${Math.round((CFG.lineRTP?.[String(reels())] || (reels() === 3 ? 0.92 : 0.82)) * 100)} % hors free spins. Les scatters ajoutent 2× / 4× / 8× la mise totale et déclenchent ${CFG.freeSpins.count} tours gratuits ×${CFG.freeSpins.multiplier}.</p>
           <p class="muted" style="font-size:9.5px;line-height:1.6;margin-top:5px"><strong style="color:var(--gold)">Jackpot :</strong> 5 sept alignés. Le jackpot grossit de 1 % de chaque mise.</p>
         </div></div>`;
       }

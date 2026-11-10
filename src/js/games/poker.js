@@ -321,9 +321,7 @@
         mult *= 1.2;
       }
       const payout = bet * mult;
-      let won = false;
       if (mult > 0) {
-        won = true;
         App.meta.payout(payout, "poker", { stake: bet, mult, silent: true });
         if (["royalFlush", "naturalRoyal", "wildRoyal"].includes(cat)) {
           g.stats.royals += 1;
@@ -347,7 +345,9 @@
         name: def ? def.name : "Aucune combinaison",
         mult,
         payout,
-        won
+        net: payout - bet,
+        paid: mult > 0,
+        won: payout > bet
       };
       renderStage();
       renderSide();
@@ -382,7 +382,7 @@
           </button>`).join("")
         : [0, 1, 2, 3, 4].map(() => `<div class="poker-card-slot"><div class="playing-card card-back" style="--cw:inherit"></div></div>`).join("");
       const result = lastResult
-        ? `<div class="poker-result"><strong>${lastResult.won ? lastResult.name : "Perdu"}</strong><span>${lastResult.won ? "+" + U.fmt(lastResult.payout) + " jetons · ×" + lastResult.mult.toFixed(2) : "Retentez votre chance."}</span></div>`
+        ? `<div class="poker-result"><strong>${lastResult.won ? lastResult.name : (lastResult.paid ? "Mise rendue" : "Perdu")}</strong><span>${lastResult.won ? "+" + U.fmt(lastResult.net) + " net · ×" + lastResult.mult.toFixed(2) : lastResult.paid ? "Retour de " + U.fmt(lastResult.payout) + " jetons · ×" + lastResult.mult.toFixed(2) : "Retentez votre chance."}</span></div>`
         : `<div class="poker-result">${phase === "holding" ? `<strong>Gardez vos cartes</strong><span>Cliquez sur les cartes à conserver, puis tirez.</span>` : phase === "bet" ? `<strong>Jacks or Better</strong><span>Misez et distribuez cinq cartes.</span>` : ""}</div>`;
       root.innerHTML = `
         <div class="poker-machine">

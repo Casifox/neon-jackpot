@@ -23,6 +23,7 @@
   let achFilter = "all";
   let achCategory = "all";
   let achSearch = "";
+  let achLimit = 60;
 
   const FEATURE_INFO = {
     plinkoShop: { name: "Boutique du Plinko", icon: "🛒", route: "plinko", desc: "Améliorez billes, rangées et multiplicateurs." },
@@ -397,7 +398,9 @@
           return pb - pa;
         });
       }
-      const cards = defs.map((def) => {
+      const totalFiltered = defs.length;
+      const visible = defs.slice(0, achLimit);
+      const cards = visible.map((def) => {
         const unlocked = !!d.achievements[def.id];
         let prog = 0;
         try { prog = def.progress(); } catch (_) { prog = 0; }
@@ -430,9 +433,10 @@
             ${categories.map((c) => `<option value="${c}" ${achCategory === c ? "selected" : ""}>${c === "all" ? "Toutes les catégories" : App.meta.categoryLabels[c].icon + " " + App.meta.categoryLabels[c].name}</option>`).join("")}
           </select>
           <input class="input" id="ach-search" placeholder="Rechercher un succès…" value="${h(achSearch)}" style="width:min(240px,100%);min-height:34px;font-size:10.5px" />
-          <span class="muted" style="font-size:10px;margin-left:auto">${defs.length} résultat${defs.length > 1 ? "s" : ""}</span>
+          <span class="muted" style="font-size:10px;margin-left:auto">${totalFiltered} résultat${totalFiltered > 1 ? "s" : ""}${totalFiltered > visible.length ? " · " + visible.length + " affichés" : ""}</span>
         </div>
-        <div class="ach-grid">${cards || `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔎</div><strong>Aucun succès ici</strong><span>Changez de filtre ou continuez à jouer.</span></div>`}</div>`;
+        <div class="ach-grid">${cards || `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔎</div><strong>Aucun succès ici</strong><span>Changez de filtre ou continuez à jouer.</span></div>`}</div>
+        ${totalFiltered > visible.length ? `<div style="display:flex;justify-content:center;margin-top:14px"><button class="btn btn-ghost" data-ach-more>Afficher ${Math.min(60, totalFiltered - visible.length)} succès de plus</button></div>` : ""}`;
     }
 
     draw();
@@ -441,18 +445,26 @@
       const f = e.target.closest("[data-ach-filter]");
       if (f) {
         achFilter = f.dataset.achFilter;
+        achLimit = 60;
+        draw();
+        return;
+      }
+      if (e.target.closest("[data-ach-more]")) {
+        achLimit += 60;
         draw();
       }
     }, { signal });
     container.addEventListener("change", (e) => {
       if (e.target.id === "ach-cat") {
         achCategory = e.target.value;
+        achLimit = 60;
         draw();
       }
     }, { signal });
     container.addEventListener("input", (e) => {
       if (e.target.id === "ach-search") {
         achSearch = e.target.value;
+        achLimit = 60;
         const pos = e.target.selectionStart;
         draw();
         const input = container.querySelector("#ach-search");
@@ -883,10 +895,9 @@
       ["Quêtes réclamées", s.questsClaimed, "récompenses"],
       ["Packs ouverts", d.collections.packsOpened, "objets découverts"],
       ["Événements", s.eventsSeen, "moments speciaux"],
-      ["Coffres de secours", s.bailouts, "jamais bloqué"],
-      ["Parties hors-ligne", d.stats.sessions, "sessions ouvertes"],
-      ["Fonds de secours", fmt(d.bailoutAt ? 1 : 0), "—"]
-    ].slice(0, 17);
+      ["Coffres de secours", s.bailouts, "utilisés"],
+      ["Sessions", d.stats.sessions, "ouvertures du jeu"]
+    ];
 
     const gameRows = App.meta.GAME_LIST.map((g) => {
       const gs = d.games[g.id].stats;

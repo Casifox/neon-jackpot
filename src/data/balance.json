@@ -142,7 +142,9 @@
     },
     "symbols": ["cherry", "lemon", "bell", "star", "seven", "diamond", "wild"],
     "scatterChance": 0.045,
-    "freeSpins": { "trigger": 3, "count": 10, "multiplier": 2 },
+    "scatterPays": { "3": 2, "4": 4, "5": 8 },
+    "lineRTP": { "3": 0.92, "5": 0.82 },
+    "freeSpins": { "trigger": 3, "count": 5, "multiplier": 1.5 },
     "jackpotContribution": 0.01,
     "jackpotBase": 5000,
     "machines": [
@@ -154,10 +156,10 @@
     "upgrades": {
       "maxBet": { "name": "Mise maximale", "icon": "💵", "base": 300, "growth": 2.1, "max": 10, "desc": "Débloque une mise plus élevée" },
       "wild": { "name": "Wilds", "icon": "🃏", "cost": 5000, "desc": "Ajoute le symbole Joker qui remplace tout" },
-      "freeSpins": { "name": "Tours gratuits", "icon": "🌀", "cost": 8000, "desc": "3 scatters déclenchent 10 tours gratuits ×2" },
+      "freeSpins": { "name": "Tours gratuits", "icon": "🌀", "cost": 8000, "desc": "3 scatters déclenchent 5 tours gratuits ×1,5" },
       "bonus": { "name": "Mini-jeu bonus", "icon": "🎁", "cost": 20000, "desc": "Choisissez un coffre après une grosse ligne" },
       "jackpot": { "name": "Jackpot progressif", "icon": "💰", "cost": 50000, "desc": "Un jackpot partagé grossit à chaque tour" },
-      "autospin": { "name": "Auto-spin", "icon": "🤖", "cost": 3000, "desc": "Lancez 10, 25 ou 50 tours automatiquement" },
+      "autospin": { "name": "Auto-spin", "icon": "🤖", "cost": 3000, "desc": "Débloque les séquences 25 et 50 tours (10 inclus)" },
       "lock": { "name": "Verrouillage", "icon": "🔒", "cost": 15000, "desc": "Verrouillez un rouleau gagnant au tour suivant" },
       "reels": { "name": "5 rouleaux", "icon": "🎰", "cost": 25000, "desc": "Passe à 5 rouleaux et 5 lignes de base" },
       "lines": { "name": "Lignes supplémentaires", "icon": "📏", "costs": [10000, 50000, 200000, 1000000], "desc": "Jusqu'à 25 lignes de paiement" }
@@ -177,7 +179,7 @@
       "radar": { "name": "Radar", "icon": "📡", "cost": 8000, "desc": "Révèle une case sûre (1 charge, rechargée après un cashout)" },
       "shield": { "name": "Bouclier", "icon": "🛡️", "cost": 15000, "desc": "Survit à une mine par partie" },
       "golden": { "name": "Mine d'or", "icon": "🪙", "cost": 50000, "desc": "Les cases sûres peuvent contenir des gemmes" },
-      "auto": { "name": "Auto-mines", "icon": "🤖", "cost": 30000, "desc": "Choisit automatiquement des cases sûres" }
+      "auto": { "name": "Assistant de visée", "icon": "🎯", "cost": 30000, "desc": "Une révélation de case sûre par manche, puis l'auto continue au hasard" }
     }
   },
   "crash": {
@@ -273,7 +275,7 @@
     "minBet": 25,
     "betSteps": [25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000],
     "raceDurationMs": 11000,
-    "houseEdge": 0.9,
+    "houseEdge": 0.94,
     "trainBase": 120,
     "trainGrowth": 1.45,
     "horses": [
@@ -288,7 +290,7 @@
       "maxBet": { "name": "Mise maximale", "icon": "💵", "base": 350, "growth": 2.1, "max": 8, "desc": "Débloque une mise plus élevée" },
       "training": { "name": "Entraînement", "icon": "🏋️", "base": 200, "growth": 1.6, "max": 30, "desc": "Améliore toutes les stats de l'écurie" },
       "tournament": { "name": "Tournois", "icon": "🏆", "cost": 30000, "desc": "Débloque les tournois à 3 courses" },
-      "auto": { "name": "Auto-course", "icon": "🤖", "cost": 25000, "desc": "Relance automatiquement sur votre cheval favori" },
+      "auto": { "name": "Auto-course", "icon": "🤖", "cost": 25000, "desc": "Acc�l�re l'encha�nement automatique des courses" },
       "odds": { "name": "Œil du pronostiqueur", "icon": "👁️", "cost": 10000, "desc": "Affiche les chances exactes de chaque cheval" }
     }
   },

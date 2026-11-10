@@ -362,7 +362,7 @@
           return;
         }
         startRace();
-      }, 2600);
+      }, g.upgrades.auto ? 1300 : 2600);
     }
 
     function startTournament() {

@@ -702,10 +702,19 @@ window.GAME_DATA = {
         "wild"
       ],
       "scatterChance": 0.045,
+      "scatterPays": {
+        "3": 2,
+        "4": 4,
+        "5": 8
+      },
+      "lineRTP": {
+        "3": 0.92,
+        "5": 0.82
+      },
       "freeSpins": {
         "trigger": 3,
-        "count": 10,
-        "multiplier": 2
+        "count": 5,
+        "multiplier": 1.5
       },
       "jackpotContribution": 0.01,
       "jackpotBase": 5000,
@@ -798,7 +807,7 @@ window.GAME_DATA = {
           "name": "Tours gratuits",
           "icon": "🌀",
           "cost": 8000,
-          "desc": "3 scatters déclenchent 10 tours gratuits ×2"
+          "desc": "3 scatters déclenchent 5 tours gratuits ×1,5"
         },
         "bonus": {
           "name": "Mini-jeu bonus",
@@ -816,7 +825,7 @@ window.GAME_DATA = {
           "name": "Auto-spin",
           "icon": "🤖",
           "cost": 3000,
-          "desc": "Lancez 10, 25 ou 50 tours automatiquement"
+          "desc": "Débloque les séquences 25 et 50 tours (10 inclus)"
         },
         "lock": {
           "name": "Verrouillage",
@@ -915,10 +924,10 @@ window.GAME_DATA = {
           "desc": "Les cases sûres peuvent contenir des gemmes"
         },
         "auto": {
-          "name": "Auto-mines",
-          "icon": "🤖",
+          "name": "Assistant de visée",
+          "icon": "🎯",
           "cost": 30000,
-          "desc": "Choisit automatiquement des cases sûres"
+          "desc": "Une révélation de case sûre par manche, puis l'auto continue au hasard"
         }
       }
     },
@@ -1325,7 +1334,7 @@ window.GAME_DATA = {
         25000
       ],
       "raceDurationMs": 11000,
-      "houseEdge": 0.9,
+      "houseEdge": 0.94,
       "trainBase": 120,
       "trainGrowth": 1.45,
       "horses": [
@@ -1411,7 +1420,7 @@ window.GAME_DATA = {
           "name": "Auto-course",
           "icon": "🤖",
           "cost": 25000,
-          "desc": "Relance automatiquement sur votre cheval favori"
+          "desc": "Acc�l�re l'encha�nement automatique des courses"
         },
         "odds": {
           "name": "Œil du pronostiqueur",
@@ -2059,9 +2068,9 @@ window.GAME_DATA = {
           },
           {
             "id": "autoBuy",
-            "name": "Auto-achat",
+            "name": "Auto-achat Plinko",
             "icon": "🤖",
-            "desc": "Achète automatiquement les améliorations prioritaires.",
+            "desc": "Achète automatiquement les améliorations Plinko les moins chères.",
             "base": 5,
             "growth": 0,
             "max": 1

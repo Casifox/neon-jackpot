@@ -31,6 +31,7 @@
     let activeBet = 0;
     let shieldLeft = 0;
     let radarBase = 0;
+    let autoSafeLeft = 0;
     let lastOutcome = null;
     let autoTimer = null;
     let timers = new Set();
@@ -93,6 +94,7 @@
       lastOutcome = null;
       shieldLeft = g.upgrades.shield ? 1 : 0;
       radarBase = g.upgrades.radar ? 1 : 0;
+      autoSafeLeft = g.upgrades.auto ? 1 : 0;
       App.audio.play("deal");
       App.fx.burst(window.innerWidth / 2, window.innerHeight / 2, { colors: ["#f59e0b", "#ff4fd8"], count: 20 });
       draw();
@@ -221,11 +223,17 @@
 
     function autoReveal() {
       if (!active || !g.upgrades.auto) return;
+      if (autoSafeLeft <= 0) {
+        App.audio.play("error");
+        App.ui.toast("Assistant épuisé", "La révélation sûre a déjà été utilisée pour cette manche.", "🎯", "");
+        return;
+      }
       const safeCells = [];
       for (let i = 0; i < totalCells(); i++) {
         if (!mines.has(i) && !revealed.has(i)) safeCells.push(i);
       }
       if (!safeCells.length) return;
+      autoSafeLeft--;
       reveal(U.pick(safeCells));
     }
 
@@ -257,9 +265,10 @@
         return;
       }
       const pool = [];
+      const useSafeAssist = g.upgrades.auto && autoSafeLeft > 0;
       for (let i = 0; i < totalCells(); i++) {
         if (revealed.has(i)) continue;
-        if (g.upgrades.auto && mines.has(i)) continue;
+        if (useSafeAssist && mines.has(i)) continue;
         pool.push(i);
       }
       if (!pool.length) {
@@ -267,6 +276,7 @@
         scheduleMinesAuto(1000);
         return;
       }
+      if (useSafeAssist) autoSafeLeft--;
       reveal(U.pick(pool));
       if (!active) scheduleMinesAuto(1500);
       else scheduleMinesAuto(620);
@@ -332,7 +342,7 @@
             <button class="btn btn-green" data-mines-cashout ${active && safeCount > 0 ? "" : "disabled"}>💰 Encaisser ${active && safeCount > 0 ? U.fmt(activeBet * multNow) : ""}</button>
             <button class="btn ${g.autoOn ? "btn-cyan" : "btn-ghost"}" data-mines-autoplay>🤖 ${g.autoOn ? "Auto actif" : "Auto"}</button>
             <button class="btn btn-ghost" data-mines-radar ${active ? "" : "disabled"}>📡 Radar (${radarBase + (d.charges.radar || 0)})</button>
-            ${g.upgrades.auto ? `<button class="btn btn-cyan" data-mines-auto ${active ? "" : "disabled"}>🎯 Révéler</button>` : ""}
+            ${g.upgrades.auto ? `<button class="btn btn-cyan" data-mines-auto ${active && autoSafeLeft > 0 ? "" : "disabled"}>🎯 Révéler (${autoSafeLeft})</button>` : ""}
           </div>
           ${lastOutcome ? `<div class="bj-message ${lastOutcome === "win" ? "big" : ""}" style="min-height:22px"><strong>${lastOutcome === "win" ? "Encaissé à " + U.fmtMult(mult) : "Explosion à " + U.fmtMult(1)}</strong><span>${lastOutcome === "win" ? "+" + U.fmt(activeBet * mult) + " jetons" : "La prochaine sera la bonne."}</span></div>` : `<div class="bj-message" style="min-height:22px"><span>${active ? "Révélez une case, puis encaissez avant la mine." : "Lancez une partie pour commencer."}</span></div>`}
         </div>`;
@@ -366,6 +376,7 @@
           <div class="mines-setup-row"><span>Mines</span><div style="display:flex;gap:5px;align-items:center"><button class="bet-step" data-mines-count="-1" ${active || !g.upgrades.minesChoice ? "disabled" : ""}>−</button><strong>${minesN}</strong><button class="bet-step" data-mines-count="1" ${active || !g.upgrades.minesChoice ? "disabled" : ""}>+</button></div></div>
           <div class="mines-setup-row"><span>Auto-cashout</span><div style="display:flex;gap:5px;align-items:center"><button class="bet-step" data-mines-target="-1" ${active || !g.upgrades.autoCashout ? "disabled" : ""}>−</button><strong>×${g.autoCashoutAt}</strong><button class="bet-step" data-mines-target="1" ${active || !g.upgrades.autoCashout ? "disabled" : ""}>+</button></div></div>
           <div class="mines-setup-row"><span>Bouclier</span><span class="badge ${shieldLeft ? "cyan" : "locked"}">${g.upgrades.shield ? shieldLeft + " / 1" : "Non débloqué"}</span></div>
+          <div class="mines-setup-row"><span>Assistant</span><span class="badge ${autoSafeLeft ? "cyan" : "locked"}">${g.upgrades.auto ? autoSafeLeft + " / 1" : "Non débloqué"}</span></div>
           <div class="mines-setup-row"><span>Radar</span><span class="badge ${radarBase + (d.charges.radar || 0) > 0 ? "cyan" : "locked"}">${radarBase + (d.charges.radar || 0)} charge(s)</span></div>
           <button class="btn btn-primary btn-block" data-mines-start ${active ? "disabled" : ""} style="margin-top:9px">${active ? "Partie en cours…" : "Commencer · 🪙 " + U.fmt(currentBet())}</button>
         </div></div>

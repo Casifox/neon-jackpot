@@ -20,6 +20,18 @@
     d.sessionStart = Date.now();
     d.lastSeen = Date.now();
 
+    // Sécurité : aucune automatisation ne doit reprendre toute seule après un rechargement.
+    let hadActiveAuto = false;
+    Object.keys(d.games).forEach((id) => {
+      const g = d.games[id];
+      if (!g) return;
+      if (g.autoOn) { g.autoOn = false; hadActiveAuto = true; }
+      if (g.autoSpins > 0) { g.autoSpins = 0; hadActiveAuto = true; }
+      if (g.autoMode) { g.autoMode = false; hadActiveAuto = true; }
+      if (g.autoBet) { g.autoBet = false; hadActiveAuto = true; }
+    });
+    App.state.saveSoon();
+
     App.fx.init();
     App.audio.setEnabled(!!d.settings.sound);
     App.audio.setVolume(d.settings.volume === undefined ? 0.55 : d.settings.volume);
@@ -37,6 +49,12 @@
         splash.classList.add("done");
         setTimeout(() => splash.remove(), 750);
       }, 550);
+    }
+
+    if (hadActiveAuto) {
+      setTimeout(() => {
+        App.ui.toast("Automatisations arrêtées", "Par sécurité, l'auto ne reprend pas après un rechargement. Relancez-le quand vous voulez.", "🤖", "");
+      }, 1400);
     }
 
     // Modale de bienvenue / hors-ligne

@@ -1912,3 +1912,19 @@ body.modal-open { overflow: hidden; }
   .hub-split { grid-template-columns: 1fr !important; }
 }
 
+/* Confort de lecture et zones tactiles sur mobile */
+@media (max-width: 640px) {
+  .upgrade-name { font-size: 12px; }
+  .upgrade-desc { font-size: 10px; -webkit-line-clamp: 2; }
+  .upgrade-level { font-size: 9px; }
+  .game-stat-chip { font-size: 11px; }
+  .tab, .seg-btn { font-size: 11px; }
+  .bet-step { width: 36px; height: 36px; }
+  .settings-desc, .shop-desc { font-size: 10px; }
+  .poker-paytable { font-size: 10px; }
+  .keno-number { font-size: 9px; }
+  .mines-setup-row { font-size: 10.5px; }
+  .horse-card .horse-name { font-size: 12px; }
+  .horse-card .horse-odds { font-size: 9px; }
+}
+

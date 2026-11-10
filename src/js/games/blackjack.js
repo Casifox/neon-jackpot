@@ -606,7 +606,7 @@
           renderTable();
           return;
         }
-        later(() => startRound(), 500);
+        later(() => startRound(), g.upgrades.auto ? 220 : 500);
         return;
       }
       if (table.phase === "player" && !busy) {
@@ -626,7 +626,7 @@
       autoTimer = setTimeout(() => {
         autoTimer = null;
         autoTick();
-      }, table && table.phase === "done" ? 1300 : 650);
+      }, table && table.phase === "done" ? (g.upgrades.auto ? 800 : 1300) : (g.upgrades.auto ? 300 : 650));
     }
 
     // ---------------- Rendu ----------------
@@ -773,7 +773,7 @@
           else if (key === "counter") levelText = level ? "Compteur actif" : "Non";
           else if (key === "split") levelText = level ? "Actif" : "Non";
           else if (key === "multiHand") levelText = maxHands() + " main" + (maxHands() > 1 ? "s" : "") + " max";
-          else if (key === "auto") levelText = level ? "Stratégie active" : "Auto de base offert";
+          else if (key === "auto") levelText = level ? "Auto rapide" : "Auto de base offert";
           else if (key === "specials") levelText = level ? "Joker / Or / Feu" : "Non";
           else if (key === "vip") levelText = level ? "+10 % de gains" : "Non";
           else if (key === "streak") levelText = level ? "+5 % / victoire" : "Non";
