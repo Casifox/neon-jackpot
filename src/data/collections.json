@@ -1,0 +1,117 @@
+{
+  "packCost": 25,
+  "packCost10": 200,
+  "rarityWeights": { "common": 58, "rare": 27, "epic": 10, "legendary": 4.5, "mythic": 0.5 },
+  "duplicateGems": { "common": 2, "rare": 5, "epic": 12, "legendary": 30, "mythic": 80 },
+  "itemBonus": 0.0025,
+  "sets": [
+    {
+      "id": "balls",
+      "name": "Billes",
+      "icon": "🔮",
+      "bonus": { "label": "+5 % de chance au Plinko", "plinkoLuck": 0.05 },
+      "items": [
+        { "id": "ball_neon", "name": "Néon", "rarity": "common", "color": "#ff4fd8" },
+        { "id": "ball_ocean", "name": "Océan", "rarity": "common", "color": "#22d3ee" },
+        { "id": "ball_sunset", "name": "Coucher de soleil", "rarity": "common", "color": "#fb923c" },
+        { "id": "ball_emerald", "name": "Émeraude", "rarity": "rare", "color": "#34d399" },
+        { "id": "ball_amethyst", "name": "Améthyste", "rarity": "rare", "color": "#a78bfa" },
+        { "id": "ball_rose", "name": "Rose gold", "rarity": "rare", "color": "#fda4af" },
+        { "id": "ball_galaxy", "name": "Galaxie", "rarity": "epic", "color": "#818cf8" },
+        { "id": "ball_toxic", "name": "Toxique", "rarity": "epic", "color": "#a3e635" },
+        { "id": "ball_lava", "name": "Lave", "rarity": "epic", "color": "#f97316" },
+        { "id": "ball_aurora", "name": "Aurore", "rarity": "legendary", "color": "#2dd4bf" },
+        { "id": "ball_void", "name": "Vide", "rarity": "legendary", "color": "#7c3aed" },
+        { "id": "ball_crown", "name": "Couronne", "rarity": "mythic", "color": "#ffd166" }
+      ]
+    },
+    {
+      "id": "cards",
+      "name": "Cartes",
+      "icon": "🃏",
+      "bonus": { "label": "+5 % de gains au Blackjack", "blackjackWin": 0.05 },
+      "items": [
+        { "id": "card_royal", "name": "Royal", "rarity": "common", "color": "#60a5fa" },
+        { "id": "card_crimson", "name": "Cramoisi", "rarity": "common", "color": "#f43f5e" },
+        { "id": "card_jade", "name": "Jade", "rarity": "common", "color": "#34d399" },
+        { "id": "card_gold", "name": "Or", "rarity": "rare", "color": "#fbbf24" },
+        { "id": "card_midnight", "name": "Minuit", "rarity": "rare", "color": "#6366f1" },
+        { "id": "card_sakura", "name": "Sakura", "rarity": "rare", "color": "#f9a8d4" },
+        { "id": "card_cyber", "name": "Cyber", "rarity": "epic", "color": "#22d3ee" },
+        { "id": "card_pharaoh", "name": "Pharaon", "rarity": "epic", "color": "#eab308" },
+        { "id": "card_skull", "name": "Crâne", "rarity": "epic", "color": "#e2e8f0" },
+        { "id": "card_rainbow", "name": "Arc-en-ciel", "rarity": "legendary", "color": "#f472b6" },
+        { "id": "card_obsidian", "name": "Obsidienne", "rarity": "legendary", "color": "#64748b" },
+        { "id": "card_infinity", "name": "Infini", "rarity": "mythic", "color": "#c084fc" }
+      ]
+    },
+    {
+      "id": "tokens",
+      "name": "Jetons",
+      "icon": "🪙",
+      "bonus": { "label": "+4 % de gains globaux", "global": 0.04 },
+      "items": [
+        { "id": "token_bronze", "name": "Bronze", "rarity": "common", "color": "#d97706" },
+        { "id": "token_silver", "name": "Argent", "rarity": "common", "color": "#cbd5e1" },
+        { "id": "token_gold", "name": "Or", "rarity": "common", "color": "#fbbf24" },
+        { "id": "token_neon", "name": "Néon", "rarity": "rare", "color": "#ff4fd8" },
+        { "id": "token_ocean", "name": "Océan", "rarity": "rare", "color": "#22d3ee" },
+        { "id": "token_blood", "name": "Sang", "rarity": "rare", "color": "#ef4444" },
+        { "id": "token_cyber", "name": "Cyber", "rarity": "epic", "color": "#a3e635" },
+        { "id": "token_cosmos", "name": "Cosmos", "rarity": "epic", "color": "#8b5cf6" },
+        { "id": "token_royal", "name": "Royal", "rarity": "legendary", "color": "#f59e0b" },
+        { "id": "token_eternal", "name": "Éternel", "rarity": "mythic", "color": "#f0abfc" }
+      ]
+    },
+    {
+      "id": "tables",
+      "name": "Tables",
+      "icon": "🎴",
+      "bonus": { "label": "+4 % de gains globaux", "global": 0.04 },
+      "items": [
+        { "id": "table_velvet", "name": "Velours", "rarity": "common", "color": "#be123c" },
+        { "id": "table_emerald", "name": "Émeraude", "rarity": "common", "color": "#047857" },
+        { "id": "table_midnight", "name": "Minuit", "rarity": "common", "color": "#1e1b4b" },
+        { "id": "table_neon", "name": "Néon", "rarity": "rare", "color": "#db2777" },
+        { "id": "table_ice", "name": "Glace", "rarity": "rare", "color": "#0ea5e9" },
+        { "id": "table_pharaoh", "name": "Pharaon", "rarity": "epic", "color": "#b45309" },
+        { "id": "table_galaxy", "name": "Galaxie", "rarity": "legendary", "color": "#7c3aed" },
+        { "id": "table_void", "name": "Vide", "rarity": "mythic", "color": "#0f172a" }
+      ]
+    },
+    {
+      "id": "avatars",
+      "name": "Avatars",
+      "icon": "🧑‍🚀",
+      "bonus": { "label": "+10 % d'XP gagnée", "xp": 0.1 },
+      "items": [
+        { "id": "avatar_rookie", "name": "Rookie", "rarity": "common", "emoji": "🙂" },
+        { "id": "avatar_shark", "name": "Requin", "rarity": "common", "emoji": "🦈" },
+        { "id": "avatar_fox", "name": "Renard", "rarity": "common", "emoji": "🦊" },
+        { "id": "avatar_panda", "name": "Panda", "rarity": "rare", "emoji": "🐼" },
+        { "id": "avatar_robot", "name": "Robot", "rarity": "rare", "emoji": "🤖" },
+        { "id": "avatar_wizard", "name": "Sorcier", "rarity": "rare", "emoji": "🧙" },
+        { "id": "avatar_alien", "name": "Alien", "rarity": "epic", "emoji": "👽" },
+        { "id": "avatar_pharaoh", "name": "Pharaon", "rarity": "epic", "emoji": "🧿" },
+        { "id": "avatar_dragon", "name": "Dragon", "rarity": "legendary", "emoji": "🐉" },
+        { "id": "avatar_king", "name": "Roi", "rarity": "mythic", "emoji": "👑" }
+      ]
+    },
+    {
+      "id": "horses",
+      "name": "Écurie",
+      "icon": "🐎",
+      "bonus": { "label": "+8 % de vitesse en course", "horseSpeed": 0.08 },
+      "items": [
+        { "id": "horse_roan", "name": "Rouan", "rarity": "common", "color": "#b45309" },
+        { "id": "horse_paint", "name": "Pie", "rarity": "common", "color": "#f9a8d4" },
+        { "id": "horse_black", "name": "Noir", "rarity": "common", "color": "#334155" },
+        { "id": "horse_white", "name": "Blanc", "rarity": "rare", "color": "#f8fafc" },
+        { "id": "horse_golden", "name": "Doré", "rarity": "rare", "color": "#fbbf24" },
+        { "id": "horse_shadow", "name": "Ombre", "rarity": "epic", "color": "#6d28d9" },
+        { "id": "horse_storm", "name": "Orage", "rarity": "legendary", "color": "#22d3ee" },
+        { "id": "horse_celestial", "name": "Céleste", "rarity": "mythic", "color": "#f0abfc" }
+      ]
+    }
+  ]
+}

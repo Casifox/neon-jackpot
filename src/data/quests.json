@@ -1,0 +1,20 @@
+{
+  "dailyCount": 3,
+  "weeklyCount": 1,
+  "templates": [
+    { "id": "plays", "label": "Jouer {n} parties", "stat": "totalBets", "base": 15, "perLevel": 4, "rewardGems": 1, "rewardMult": 1.2, "icon": "🎮" },
+    { "id": "wins", "label": "Gagner {n} parties", "stat": "totalWins", "base": 8, "perLevel": 2, "rewardGems": 1, "rewardMult": 1.4, "icon": "🏆" },
+    { "id": "earn", "label": "Gagner {n} jetons", "stat": "totalEarned", "base": 300, "growth": 1.28, "rewardGems": 2, "rewardMult": 0.55, "icon": "🪙" },
+    { "id": "mult", "label": "Toucher un ×{n}", "stat": "biggestMult", "base": 4, "perLevel": 0.35, "absolute": true, "rewardGems": 2, "rewardMult": 30, "icon": "✨" },
+    { "id": "plinko", "label": "Lâcher {n} billes au Plinko", "stat": "games.plinko.plays", "base": 12, "perLevel": 3, "rewardGems": 1, "rewardMult": 1.1, "icon": "🔻" },
+    { "id": "blackjack", "label": "Gagner {n} mains au Blackjack", "stat": "games.blackjack.wins", "base": 5, "perLevel": 1.5, "rewardGems": 2, "rewardMult": 1.5, "icon": "🃏" },
+    { "id": "roulette", "label": "Faire {n} lancers à la Roulette", "stat": "games.roulette.plays", "base": 8, "perLevel": 2, "rewardGems": 1, "rewardMult": 1.2, "icon": "🎡" },
+    { "id": "slots", "label": "Lancer {n} tours de machine à sous", "stat": "games.slots.plays", "base": 10, "perLevel": 3, "rewardGems": 1, "rewardMult": 1.1, "icon": "🎰" },
+    { "id": "mines", "label": "Encaisser {n} fois aux Mines", "stat": "games.mines.cashouts", "base": 4, "perLevel": 1, "rewardGems": 2, "rewardMult": 1.6, "icon": "💣" },
+    { "id": "crash", "label": "Jouer {n} manches de Crash", "stat": "games.crash.plays", "base": 6, "perLevel": 1.5, "rewardGems": 1, "rewardMult": 1.4, "icon": "🚀" },
+    { "id": "dice", "label": "Gagner {n} lancers aux Dés", "stat": "games.dice.wins", "base": 5, "perLevel": 1.5, "rewardGems": 1, "rewardMult": 1.3, "icon": "🎲" },
+    { "id": "keno", "label": "Réussir {n} tirages au Keno", "stat": "games.keno.wins", "base": 4, "perLevel": 1, "rewardGems": 2, "rewardMult": 1.5, "icon": "🔢" },
+    { "id": "poker", "label": "Gagner {n} mains de Poker vidéo", "stat": "games.poker.wins", "base": 4, "perLevel": 1, "rewardGems": 2, "rewardMult": 1.5, "icon": "♠️" },
+    { "id": "horses", "label": "Gagner {n} courses", "stat": "games.horses.wins", "base": 3, "perLevel": 0.8, "rewardGems": 2, "rewardMult": 1.6, "icon": "🐎" }
+  ]
+}

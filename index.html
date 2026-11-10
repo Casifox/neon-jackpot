@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07070f" />
+  <title>Neon Jackpot — Casino incrémental</title>
+  <meta name="description" content="Neon Jackpot : un casino incrémental néon, 100 % virtuel. Plinko, Blackjack, Roulette, Machines à sous, Mines, Crash et bien plus. Aucun argent réel." />
+  <meta name="author" content="Neon Jackpot" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Neon Jackpot — Casino incrémental" />
+  <meta property="og:description" content="Un casino incrémental néon, 100 % virtuel. Plinko, Blackjack, Roulette, Slots, Mines, Crash… et des animations partout." />
+  <meta property="og:url" content="https://casifox.github.io/neon-jackpot/" />
+  <meta property="og:image" content="https://casifox.github.io/neon-jackpot/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Neon Jackpot — Casino incrémental" />
+  <meta name="twitter:description" content="Un casino incrémental néon, 100 % virtuel. Aucun argent réel, que du fun." />
+  <meta name="twitter:image" content="https://casifox.github.io/neon-jackpot/assets/og.png" />
+  <link rel="canonical" href="https://casifox.github.io/neon-jackpot/" />
+  <meta name="robots" content="index,follow" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="src/css/base.css?v=1.3.2" />
+  <link rel="stylesheet" href="src/css/components.css?v=1.3.2" />
+  <link rel="stylesheet" href="src/css/games.css?v=1.3.2" />
+  <link rel="stylesheet" href="src/css/animations.css?v=1.3.2" />
+</head>
+<body>
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-aura"></div>
+    <div class="splash-logo">
+      <span class="splash-suit suit-1">♠</span>
+      <span class="splash-suit suit-2">♦</span>
+      <span class="splash-mark">7</span>
+      <span class="splash-suit suit-3">♣</span>
+      <span class="splash-suit suit-4">♥</span>
+    </div>
+    <h1 class="splash-title">NEON<span>JACKPOT</span></h1>
+    <p class="splash-tagline">Le casino qui ne dort jamais.</p>
+    <div class="splash-loader"><span></span></div>
+  </div>
+
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-aurora aurora-1" aria-hidden="true"></div>
+  <div class="bg-aurora aurora-2" aria-hidden="true"></div>
+  <div class="bg-aurora aurora-3" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+  <div class="float-layer" id="float-layer" aria-hidden="true"></div>
+
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="brand" href="#hub" data-route="hub" aria-label="Neon Jackpot — accueil">
+          <span class="brand-mark"><span>7</span></span>
+          <span class="brand-text">NEON<em>JACKPOT</em></span>
+        </a>
+        <button class="icon-btn sidebar-close" id="sidebar-close" aria-label="Fermer le menu">✕</button>
+      </div>
+
+      <div class="sidebar-scroll">
+        <div class="nav-label">Jouer</div>
+        <nav class="nav" id="nav-games" aria-label="Jeux"></nav>
+
+        <div class="nav-label">Progression</div>
+        <nav class="nav" id="nav-meta" aria-label="Progression"></nav>
+      </div>
+
+      <div class="sidebar-foot">
+        <div class="profile-mini" id="profile-mini">
+          <div class="avatar" id="hud-avatar">🙂</div>
+          <div class="profile-text">
+            <strong id="profile-name">Joueur</strong>
+            <span id="profile-title">Novice</span>
+          </div>
+          <button class="icon-btn" data-route="settings" aria-label="Réglages">⚙️</button>
+        </div>
+        <div class="sidebar-links">
+          <a href="#settings" data-route="settings">Réglages</a>
+          <a href="#" id="repo-link" target="_blank" rel="noopener">Code source ↗</a>
+        </div>
+        <p class="virtual-note">100 % virtuel · aucun argent réel</p>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <div class="main-wrap">
+      <header class="topbar" id="topbar">
+        <button class="icon-btn menu-btn" id="menu-btn" aria-label="Ouvrir le menu">☰</button>
+        <div class="page-heading">
+          <h1 id="page-title">Accueil</h1>
+          <p id="page-sub">Bienvenue dans la lumière.</p>
+        </div>
+        <div class="topbar-spacer"></div>
+        <div class="hud">
+          <div class="level-hud" id="level-hud">
+            <div class="level-badge"><span>NIV</span><strong id="hud-level">1</strong></div>
+            <div class="level-info">
+              <div class="level-bar"><i id="hud-xp-fill"></i><span id="hud-xp-glow"></span></div>
+              <span class="level-xp" id="hud-xp-label">0 / 50 XP</span>
+            </div>
+          </div>
+          <button class="currency currency-tokens" id="hud-tokens" title="Jetons">
+            <span class="coin-icon">🪙</span>
+            <strong id="hud-tokens-value">250</strong>
+            <span class="currency-pulse" id="tokens-pulse"></span>
+          </button>
+          <button class="currency currency-gems" id="hud-gems" title="Gemmes">
+            <span class="coin-icon">💎</span>
+            <strong id="hud-gems-value">0</strong>
+          </button>
+          <button class="currency currency-prestige hidden" id="hud-prestige" title="Monnaie de prestige">
+            <span class="coin-icon" id="hud-prestige-icon">⭐</span>
+            <strong id="hud-prestige-value">0</strong>
+          </button>
+          <button class="icon-btn sound-btn" id="btn-sound" aria-label="Activer ou couper le son">🔊</button>
+        </div>
+      </header>
+
+      <div class="buff-bar hidden" id="buff-bar"></div>
+      <div class="event-banner hidden" id="event-banner"></div>
+
+      <main class="main" id="main">
+        <div class="view" id="view" tabindex="-1"></div>
+      </main>
+
+      <footer class="site-footer">
+        <span>Neon Jackpot · <span id="footer-version">v1.0</span></span>
+        <span class="footer-sep">·</span>
+        <a href="#settings" data-route="settings">Réglages</a>
+        <span class="footer-sep">·</span>
+        <a href="#" id="repo-link-2" target="_blank" rel="noopener">GitHub</a>
+        <span class="footer-sep">·</span>
+        <span>Toutes les monnaies sont virtuelles. Aucun argent réel.</span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast-root" id="toast-root" aria-live="polite"></div>
+  <div class="modal-root" id="modal-root"></div>
+  <button class="bailout-fab hidden" id="bailout-fab" title="Coffre de secours">🆘</button>
+
+  <noscript>
+    <div class="noscript">Neon Jackpot a besoin de JavaScript pour faire tourner ses rouleaux.</div>
+  </noscript>
+
+  <script src="src/data/bundle.js?v=1.3.2"></script>
+  <script src="src/js/utils.js?v=1.3.2"></script>
+  <script src="src/js/audio.js?v=1.3.2"></script>
+  <script src="src/js/fx.js?v=1.3.2"></script>
+  <script src="src/js/state.js?v=1.3.2"></script>
+  <script src="src/js/meta.js?v=1.3.2"></script>
+  <script src="src/js/ui.js?v=1.3.2"></script>
+  <script src="src/js/games/plinko.js?v=1.3.2"></script>
+  <script src="src/js/games/blackjack.js?v=1.3.2"></script>
+  <script src="src/js/games/roulette.js?v=1.3.2"></script>
+  <script src="src/js/games/slots.js?v=1.3.2"></script>
+  <script src="src/js/games/mines.js?v=1.3.2"></script>
+  <script src="src/js/games/crash.js?v=1.3.2"></script>
+  <script src="src/js/games/dice.js?v=1.3.2"></script>
+  <script src="src/js/games/keno.js?v=1.3.2"></script>
+  <script src="src/js/games/poker.js?v=1.3.2"></script>
+  <script src="src/js/games/horses.js?v=1.3.2"></script>
+  <script src="src/js/games/vault.js?v=1.3.2"></script>
+  <script src="src/js/pages.js?v=1.3.2"></script>
+  <script src="src/js/main.js?v=1.3.2"></script>
+</body>
+</html>

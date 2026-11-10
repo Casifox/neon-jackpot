@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b0b2e"/>
+      <stop offset="1" stop-color="#07070f"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4fd8"/>
+      <stop offset="0.55" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="40" y="40" width="432" height="432" rx="84" fill="none" stroke="url(#neon)" stroke-width="8" opacity="0.85"/>
+  <g filter="url(#glow)">
+    <text x="256" y="348" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="260" fill="url(#neon)">7</text>
+  </g>
+  <text x="98" y="128" font-family="Arial, sans-serif" font-size="44" fill="#ff4fd8" opacity="0.9">♠</text>
+  <text x="386" y="140" font-family="Arial, sans-serif" font-size="44" fill="#22d3ee" opacity="0.9">♦</text>
+  <text x="100" y="420" font-family="Arial, sans-serif" font-size="44" fill="#22d3ee" opacity="0.9">♣</text>
+  <text x="384" y="420" font-family="Arial, sans-serif" font-size="44" fill="#ff4fd8" opacity="0.9">♥</text>
+</svg>

@@ -1,0 +1,112 @@
+{
+  "synergies": [
+    {
+      "id": "bj_to_plinko",
+      "name": "Veine partagée",
+      "icon": "🃏",
+      "event": "bj_streak_5",
+      "condition": "5 victoires consécutives au Blackjack",
+      "desc": "+10 % de chance de bords au Plinko pendant 5 minutes.",
+      "effect": { "type": "buff", "buff": "plinkoLuck", "value": 10, "duration": 300000, "label": "Veine partagée" }
+    },
+    {
+      "id": "slots_to_plinko",
+      "name": "Bille offerte",
+      "icon": "🎰",
+      "event": "slots_jackpot",
+      "condition": "Décrocher le jackpot progressif",
+      "desc": "Offre une bille arc-en-ciel garantie et 2 billes d'or.",
+      "effect": { "type": "rainbow", "amount": 1, "goldBalls": 2, "label": "Jackpot partagé" }
+    },
+    {
+      "id": "roulette_to_mines",
+      "name": "Le radar s'allume",
+      "icon": "🎡",
+      "event": "roulette_win_35",
+      "condition": "Gagner une mise sur un numéro plein",
+      "desc": "Recharge le radar des Mines et donne 1 gemme.",
+      "effect": { "type": "radar", "amount": 1, "gems": 1, "label": "Bon présage" }
+    },
+    {
+      "id": "mines_to_crash",
+      "name": "Sang-froid",
+      "icon": "💣",
+      "event": "mines_cashout_10x",
+      "condition": "Encaisser à ×10 ou plus aux Mines",
+      "desc": "Accorde un filet de sécurité gratuit pour la prochaine manche de Crash.",
+      "effect": { "type": "crashSafety", "amount": 1, "label": "Sang-froid" }
+    },
+    {
+      "id": "keno_to_gems",
+      "name": "Tirage précieux",
+      "icon": "🔢",
+      "event": "keno_7_hits",
+      "condition": "Trouver 7 numéros ou plus au Keno",
+      "desc": "Offre 5 gemmes et +10 % de gains globaux pendant 3 minutes.",
+      "effect": { "type": "buff", "buff": "global", "value": 10, "duration": 180000, "gems": 5, "label": "Tirage précieux" }
+    },
+    {
+      "id": "poker_royal",
+      "name": "Main de roi",
+      "icon": "♠️",
+      "event": "poker_royal",
+      "condition": "Réaliser une quinte flush royale au Poker vidéo",
+      "desc": "+50 % de gains globaux pendant 10 minutes.",
+      "effect": { "type": "buff", "buff": "global", "value": 50, "duration": 600000, "label": "Main de roi" }
+    },
+    {
+      "id": "horses_streak",
+      "name": "Écurie en feu",
+      "icon": "🐎",
+      "event": "horses_3_streak",
+      "condition": "3 courses gagnées d'affilée",
+      "desc": "Offre des jetons et une chance de bille dorée au Plinko.",
+      "effect": { "type": "buff", "buff": "plinkoLuck", "value": 15, "duration": 240000, "tokens": 5000, "label": "Écurie en feu" }
+    },
+    {
+      "id": "plinko_to_blackjack",
+      "name": "Carte en or",
+      "icon": "✨",
+      "event": "plinko_100x",
+      "condition": "Toucher un ×100 ou plus au Plinko",
+      "desc": "Votre prochaine main de Blackjack contient une carte dorée.",
+      "effect": { "type": "goldenCard", "amount": 1, "gems": 2, "label": "Carte en or" }
+    },
+    {
+      "id": "dice_streak",
+      "name": "Les dés sont chauds",
+      "icon": "🎲",
+      "event": "dice_5_streak",
+      "condition": "5 lancers gagnants d'affilée aux Dés",
+      "desc": "+15 % aux Dés et +10 % de chance au Plinko pendant 5 minutes.",
+      "effect": { "type": "buff", "buff": "diceWin", "value": 15, "duration": 300000, "label": "Dés chauds" }
+    },
+    {
+      "id": "crash_to_global",
+      "name": "Atterrissage parfait",
+      "icon": "🚀",
+      "event": "crash_cashout_20x",
+      "condition": "Encaisser à ×20 ou plus au Crash",
+      "desc": "+30 % de gains globaux pendant 5 minutes.",
+      "effect": { "type": "buff", "buff": "global", "value": 30, "duration": 300000, "label": "Atterrissage parfait" }
+    },
+    {
+      "id": "all_games",
+      "name": "Le grand chelem",
+      "icon": "🌐",
+      "event": "all_games_unlocked",
+      "condition": "Débloquer les 10 jeux du casino",
+      "desc": "+5 % de gains permanents. Le casino vous appartient.",
+      "effect": { "type": "permanent", "value": 5, "gems": 25, "label": "Grand chelem" }
+    },
+    {
+      "id": "first_rebirth",
+      "name": "Nouvelle lune",
+      "icon": "🌙",
+      "event": "rebirth_1",
+      "condition": "Effectuer un premier Rebirth",
+      "desc": "Offre 10 gemmes et 2 billes d'or.",
+      "effect": { "type": "reward", "gems": 10, "goldBalls": 2, "label": "Nouvelle lune" }
+    }
+  ]
+}

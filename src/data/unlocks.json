@@ -1,0 +1,153 @@
+{
+  "games": {
+    "plinko": 1,
+    "blackjack": 10,
+    "roulette": 20,
+    "slots": 30,
+    "mines": 60,
+    "crash": 75,
+    "dice": 90,
+    "keno": 100,
+    "poker": 200,
+    "horses": 300
+  },
+  "features": {
+    "plinkoShop": 3,
+    "autoDrop": 5,
+    "quests": 8,
+    "blackjack": 10,
+    "achievements": 12,
+    "stats": 15,
+    "roulette": 20,
+    "gems": 25,
+    "slots": 30,
+    "rebirth1": 40,
+    "collections": 50,
+    "mines": 60,
+    "crash": 75,
+    "dice": 90,
+    "keno": 100,
+    "rebirth2": 150,
+    "poker": 200,
+    "horses": 300,
+    "synergies": 400,
+    "rebirth3": 500,
+    "secret": 750,
+    "layer4": 1000,
+    "automation3": 250,
+    "automation4": 400,
+    "manager": 500
+  },
+  "gameMeta": [
+    {
+      "id": "plinko",
+      "name": "Plinko",
+      "icon": "🔻",
+      "tagline": "Faites tomber. Encaissez. Recommencez.",
+      "description": "La porte d'entrée du casino. Lâchez des billes, touchez les bords et débloquez des multiplicateurs toujours plus fous.",
+      "color": "#ff4fd8",
+      "color2": "#7c3aed",
+      "category": "phare"
+    },
+    {
+      "id": "blackjack",
+      "name": "Blackjack",
+      "icon": "🃏",
+      "tagline": "21, sans dépasser.",
+      "description": "Affrontez le croupier, enchaînez les blackjacks et faites tomber des croupiers légendaires.",
+      "color": "#22d3ee",
+      "color2": "#2563eb",
+      "category": "table"
+    },
+    {
+      "id": "roulette",
+      "name": "Roulette",
+      "icon": "🎡",
+      "tagline": "La bille décide. Vous misez.",
+      "description": "Rouge, noir, douzaines, numéros pleins. Faites tourner la roue dorée et savourez le suspense.",
+      "color": "#f43f5e",
+      "color2": "#f59e0b",
+      "category": "table"
+    },
+    {
+      "id": "slots",
+      "name": "Machines à sous",
+      "icon": "🎰",
+      "tagline": "Trois rouleaux. Mille frissons.",
+      "description": "Wilds, scatters, tours gratuits et jackpot progressif partagé entre toutes les machines.",
+      "color": "#a855f7",
+      "color2": "#ec4899",
+      "category": "machine"
+    },
+    {
+      "id": "mines",
+      "name": "Mines",
+      "icon": "💣",
+      "tagline": "Un pas de plus, ou pas.",
+      "description": "Révélez les cases sûres, augmentez votre multiplicateur et encaissez avant l'explosion.",
+      "color": "#f59e0b",
+      "color2": "#ef4444",
+      "category": "risque"
+    },
+    {
+      "id": "crash",
+      "name": "Crash",
+      "icon": "🚀",
+      "tagline": "Jusqu'où oserez-vous aller ?",
+      "description": "Le multiplicateur monte, la fusée accélère. Encaissez avant que tout n'explose.",
+      "color": "#34d399",
+      "color2": "#06b6d4",
+      "category": "risque"
+    },
+    {
+      "id": "dice",
+      "name": "Dés",
+      "icon": "🎲",
+      "tagline": "Au-dessus ou en dessous.",
+      "description": "Choisissez un seuil, lancez les dés et laissez la chance décider. Les dés pipés sont là pour vous aider.",
+      "color": "#60a5fa",
+      "color2": "#818cf8",
+      "category": "machine"
+    },
+    {
+      "id": "keno",
+      "name": "Keno",
+      "icon": "🔢",
+      "tagline": "Choisissez vos numéros chanceux.",
+      "description": "Sélectionnez jusqu'à 10 numéros, regardez les boules tomber et visez le tirage parfait.",
+      "color": "#4ade80",
+      "color2": "#14b8a6",
+      "category": "tirage"
+    },
+    {
+      "id": "poker",
+      "name": "Poker vidéo",
+      "icon": "♠️",
+      "tagline": "Gardez. Tirez. Encaissez.",
+      "description": "Jacks or Better, Deuces Wild et mains royales. Une machine, cinq cartes, zéro bluff.",
+      "color": "#e879f9",
+      "color2": "#8b5cf6",
+      "category": "carte"
+    },
+    {
+      "id": "horses",
+      "name": "Courses de chevaux",
+      "icon": "🐎",
+      "tagline": "Élevez votre écurie. Visez la ligne.",
+      "description": "Entraînez vos chevaux, étudiez les cotes et pariez sur la course la plus palpitante du casino.",
+      "color": "#fb923c",
+      "color2": "#facc15",
+      "category": "sport"
+    },
+    {
+      "id": "vault",
+      "name": "Salle des coffres",
+      "icon": "🗝️",
+      "tagline": "Un secret bien gardé.",
+      "description": "Une salle cachée réservée aux habitués. Trois coffres, une seule clé par jour.",
+      "color": "#fbbf24",
+      "color2": "#f472b6",
+      "category": "secret"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "layers": [
+    {
+      "key": "stars",
+      "currency": "stars",
+      "name": "Étoiles",
+      "icon": "⭐",
+      "level": 40,
+      "grant": 0.05,
+      "tagline": "La première boucle. Chaque étoile rend le casino plus généreux.",
+      "shop": [
+        { "id": "global", "name": "Multiplicateur stellaire", "icon": "🌌", "desc": "+10 % de gains globaux par niveau.", "base": 2, "growth": 2, "max": 25 },
+        { "id": "plinkoLuck", "name": "Chance stellaire", "icon": "🍀", "desc": "+2 % de chance de bords au Plinko.", "base": 1, "growth": 1, "max": 20 },
+        { "id": "startTokens", "name": "Caisse de départ", "icon": "🎒", "desc": "+10 000 jetons au début de chaque run.", "base": 2, "growth": 2, "max": 20 },
+        { "id": "offline", "name": "Veille prolongée", "icon": "🌙", "desc": "+2 h de gains hors-ligne.", "base": 2, "growth": 2, "max": 11 },
+        { "id": "autoBuy", "name": "Auto-achat", "icon": "🤖", "desc": "Achète automatiquement les améliorations prioritaires.", "base": 5, "growth": 0, "max": 1 },
+        { "id": "gemBonus", "name": "Chercheur de gemmes", "icon": "💎", "desc": "+10 % de gemmes gagnées.", "base": 3, "growth": 2, "max": 10 }
+      ]
+    },
+    {
+      "key": "crowns",
+      "currency": "crowns",
+      "name": "Couronnes",
+      "icon": "👑",
+      "level": 150,
+      "grant": 0.15,
+      "tagline": "La deuxième boucle. Le casino courbe l'échine.",
+      "shop": [
+        { "id": "global", "name": "Édit royal", "icon": "🏰", "desc": "+25 % de gains globaux par niveau.", "base": 1, "growth": 1, "max": 20 },
+        { "id": "allLuck", "name": "Faveur royale", "icon": "🍀", "desc": "+5 % de chance dans tous les jeux.", "base": 1, "growth": 2, "max": 10 },
+        { "id": "xpBoost", "name": "Éducation princière", "icon": "📚", "desc": "+25 % d'XP par niveau.", "base": 1, "growth": 2, "max": 10 },
+        { "id": "manager", "name": "Gérant virtuel", "icon": "🕴️", "desc": "Auto-joue et auto-mise dans les jeux compatibles.", "base": 8, "growth": 0, "max": 1 },
+        { "id": "startLevel", "name": "Avance royale", "icon": "🚀", "desc": "Commence chaque run 5 niveaux plus haut.", "base": 2, "growth": 2, "max": 10 }
+      ]
+    },
+    {
+      "key": "diamonds",
+      "currency": "diamonds",
+      "name": "Diamants",
+      "icon": "💠",
+      "level": 500,
+      "grant": 0.35,
+      "tagline": "La troisième boucle. La lumière devient une matière.",
+      "shop": [
+        { "id": "global", "name": "Réfraction totale", "icon": "🌈", "desc": "+50 % de gains globaux par niveau.", "base": 1, "growth": 1, "max": 20 },
+        { "id": "startLevel", "name": "Saut de diamant", "icon": "⏫", "desc": "Commence chaque run 10 niveaux plus haut.", "base": 2, "growth": 2, "max": 15 },
+        { "id": "automation", "name": "Automatisation totale", "icon": "⚙️", "desc": "Débloque l'automatisation avancée de tous les jeux.", "base": 5, "growth": 0, "max": 1 }
+      ]
+    },
+    {
+      "key": "relics",
+      "currency": "relics",
+      "name": "Reliques",
+      "icon": "🔮",
+      "level": 1000,
+      "grant": 0.75,
+      "tagline": "La boucle infinie. Il n'y a plus de plafond.",
+      "shop": [
+        { "id": "global", "name": "Écho infini", "icon": "♾️", "desc": "+100 % de gains globaux par niveau.", "base": 1, "growth": 2, "max": 50 },
+        { "id": "xpBoost", "name": "Savoir infini", "icon": "🧠", "desc": "+100 % d'XP par niveau.", "base": 2, "growth": 2, "max": 25 }
+      ]
+    }
+  ]
+}

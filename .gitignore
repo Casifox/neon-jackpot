@@ -1,0 +1,20 @@
+# Dépendances
+node_modules/
+package-lock.json
+
+# Systèmes
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs / temporaires
+*.log
+npm-debug.log*
+.env
+.env.*

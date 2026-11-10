@@ -1,0 +1,19 @@
+{
+  "name": "Neon Jackpot — Casino incrémental",
+  "short_name": "Neon Jackpot",
+  "description": "Un casino incrémental néon, 100 % virtuel. Plinko, Blackjack, Roulette, Slots, Mines, Crash et plus encore.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07070f",
+  "theme_color": "#07070f",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "assets/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

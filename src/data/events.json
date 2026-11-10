@@ -1,0 +1,15 @@
+{
+  "checkEveryMs": [180000, 360000],
+  "events": [
+    { "id": "golden_hour", "name": "Heure dorée", "icon": "🌟", "desc": "Tous les gains sont doublés pendant 2 minutes.", "weight": 30, "duration": 120000, "global": 100 },
+    { "id": "casino_party", "name": "Casino en fête", "icon": "🎉", "desc": "+50 % de gains sur tous les jeux pendant 3 minutes.", "weight": 25, "duration": 180000, "global": 50 },
+    { "id": "ball_rain", "name": "Pluie de billes", "icon": "🌧️", "desc": "10 billes gratuites au Plinko, immédiatement.", "weight": 20, "freePlinko": 10 },
+    { "id": "gem_shower", "name": "Pluie de gemmes", "icon": "💎", "desc": "Quelques gemmes tombent du plafond.", "weight": 12, "gems": 8 },
+    { "id": "mystery_visitor", "name": "Visiteur mystérieux", "icon": "🕵️", "desc": "Un inconnu vous propose trois bénédictions. Choisissez bien.", "weight": 13, "choice": true }
+  ],
+  "mysteryChoices": [
+    { "id": "tokens", "label": "Une bourse de jetons", "icon": "🪙", "tokens": 25000 },
+    { "id": "gems", "label": "Un écrin de gemmes", "icon": "💎", "gems": 15 },
+    { "id": "luck", "label": "Un trèfle à quatre feuilles", "icon": "🍀", "buff": { "buff": "plinkoLuck", "value": 20, "duration": 600000, "label": "Trèfle du visiteur" } }
+  ]
+}
