@@ -14,6 +14,16 @@
 
 > **Aucun argent réel.** Toutes les monnaies sont virtuelles. Aucun lien avec de vrais paris, aucune boutique payante, aucune publicité.
 
+## 🔧 Dernières corrections (v1.4.1)
+
+- **Équilibrage des machines à sous** : le retour de ligne est normalisé (environ 92 % sur 3 rouleaux, 82 % hors free spins sur 5 rouleaux) au lieu d'un RTP de 40 % au début et 123 % en fin de progression.
+- **Auto sécurisé** : les automatisations ne reprennent plus toutes seules après un rechargement.
+- **Mines** : l'assistant ne révèle plus qu'une seule case sûre par manche, puis l'auto redevient risqué.
+- **Succès** : pagination par 60 cartes pour alléger la page mobile.
+- **Poker** : distinction claire entre gain net et simple retour de mise.
+- **Statistiques** : libellés corrigés, compteur de Crash réparé.
+- **UI** : fin des modales superposées, meilleure lisibilité mobile, upgrades Auto rendus utiles (vitesse, séquences 25/50).
+
 ---
 
 ## ✨ Ce qui rend Neon Jackpot différent
