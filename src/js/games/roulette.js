@@ -92,7 +92,7 @@
 
       // halo
       const halo = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R * 1.2);
-      halo.addColorStop(0, "rgba(244,63,94,0.12)");
+      halo.addColorStop(0, "rgba(211,174,98,0.14)");
       halo.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = halo;
       ctx.beginPath();
@@ -112,9 +112,9 @@
         ctx.shadowColor = "rgba(255,200,87,0.35)";
         ctx.shadowBlur = 24;
       } else {
-        rim.addColorStop(0, "#4c1d95");
-        rim.addColorStop(0.5, "#1e1030");
-        rim.addColorStop(1, "#0b0714");
+        rim.addColorStop(0, "#1d3a30");
+        rim.addColorStop(0.5, "#12261f");
+        rim.addColorStop(1, "#080f0c");
       }
       ctx.fillStyle = rim;
       ctx.fill();
@@ -164,8 +164,8 @@
       // moyeu
       const hub = ctx.createRadialGradient(cx - R * 0.12, cy - R * 0.15, R * 0.05, cx, cy, R * 0.58);
       hub.addColorStop(0, "rgba(255,255,255,0.16)");
-      hub.addColorStop(0.4, "rgba(49,25,80,0.92)");
-      hub.addColorStop(1, "rgba(8,6,16,0.98)");
+      hub.addColorStop(0.4, "rgba(24,44,36,0.92)");
+      hub.addColorStop(1, "rgba(6,12,9,0.98)");
       ctx.beginPath();
       ctx.arc(cx, cy, R * 0.6, 0, Math.PI * 2);
       ctx.fillStyle = hub;
@@ -180,7 +180,7 @@
       ctx.strokeStyle = "rgba(255,255,255,0.12)";
       ctx.stroke();
       ctx.fillStyle = g.upgrades.goldenWheel ? "#ffc857" : "rgba(255,255,255,0.5)";
-      ctx.font = `800 ${Math.max(16, W * 0.07)}px Outfit, sans-serif`;
+      ctx.font = `800 ${Math.max(16, W * 0.07)}px "Bodoni MT", Didot, Georgia, serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText("7", cx, cy + 1);
