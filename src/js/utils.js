@@ -152,6 +152,7 @@
       const out = {};
       const keys = new Set([...Object.keys(base), ...Object.keys(override || {})]);
       keys.forEach((k) => {
+        if (k === "__proto__" || k === "constructor" || k === "prototype") return;
         if (override && Object.prototype.hasOwnProperty.call(override, k)) {
           out[k] = U.deepMerge(base[k], override[k]);
         } else {

@@ -164,7 +164,7 @@
     const nextGame = App.meta.GAME_LIST.find((g) => App.meta.isGameUnlocked(g.id) && g.id !== "plinko") || App.meta.GAME_META.plinko;
 
     const journal = d.journal.slice(0, 7).map((j) => `<div class="journal-row">
-      <span class="journal-icon">${j.icon}</span>
+      <span class="journal-icon">${h(j.icon)}</span>
       <span class="journal-text">${h(j.text)}</span>
       <span class="journal-value">${h(j.value)}</span>
       <span class="journal-time">${U.timeAgo(j.at)}</span>
@@ -207,7 +207,7 @@
 
     const buffs = App.meta.activeBuffs();
     const buffsHtml = buffs.length
-      ? buffs.map((b) => `<div class="journal-row"><span class="journal-icon">${b.icon || "✨"}</span><span class="journal-text"><strong>${h(b.label)}</strong></span><span class="journal-value">+${b.value} %</span><span class="journal-time">${U.formatCountdown(b.until - Date.now())}</span></div>`).join("")
+      ? buffs.map((b) => `<div class="journal-row"><span class="journal-icon">${h(b.icon || "✨")}</span><span class="journal-text"><strong>${h(b.label)}</strong></span><span class="journal-value">+${h(b.value)} %</span><span class="journal-time">${U.formatCountdown(b.until - Date.now())}</span></div>`).join("")
       : `<div class="empty-state" style="padding:18px"><div class="empty-icon">🌙</div><span>Aucun effet temporaire actif. Débloquez des synergies pour en profiter.</span></div>`;
 
     container.innerHTML = `
@@ -629,7 +629,7 @@
         <span class="badge gold">+${(d.synergies.permanent || 0).toFixed(0)} % permanent</span>
       </div>
       <div class="synergy-grid">${cards}</div>
-      ${buffs.length ? `<div class="panel" style="margin-top:14px"><div class="panel-head"><h3>✨ Effets temporaires actifs</h3></div><div class="panel-body" style="padding-top:8px;padding-bottom:8px">${buffs.map((b) => `<div class="journal-row"><span class="journal-icon">${b.icon || "✨"}</span><span class="journal-text"><strong>${h(b.label)}</strong></span><span class="journal-value">+${b.value} %</span><span class="journal-time">${U.formatCountdown(b.until - Date.now())}</span></div>`).join("")}</div></div>` : ""}`;
+      ${buffs.length ? `<div class="panel" style="margin-top:14px"><div class="panel-head"><h3>✨ Effets temporaires actifs</h3></div><div class="panel-body" style="padding-top:8px;padding-bottom:8px">${buffs.map((b) => `<div class="journal-row"><span class="journal-icon">${h(b.icon || "✨")}</span><span class="journal-text"><strong>${h(b.label)}</strong></span><span class="journal-value">+${h(b.value)} %</span><span class="journal-time">${U.formatCountdown(b.until - Date.now())}</span></div>`).join("")}</div></div>` : ""}`;
     return null;
   }
 

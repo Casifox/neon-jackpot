@@ -246,6 +246,58 @@
 
   State.defaultState = defaultState;
 
+  function backupCorrupted(raw) {
+    if (typeof raw !== "string" || !raw) return null;
+    const key = SAVE_KEY + ".backup." + Date.now();
+    try {
+      localStorage.setItem(key, raw);
+      console.warn("[state] sauvegarde illisible conservée sous " + key);
+      return key;
+    } catch (err) {
+      console.warn("[state] copie de secours impossible", err);
+      return null;
+    }
+  }
+
+  function finiteOr(value, fallback) {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : fallback;
+  }
+
+  function safeString(value, max) {
+    return typeof value === "string" ? value.slice(0, max) : "";
+  }
+
+  // Recopie uniquement des valeurs contrôlées pour les champs affichés en HTML.
+  State.sanitize = function (raw) {
+    const base = defaultState();
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return base;
+    const merged = U.deepMerge(base, raw);
+    merged.tokens = finiteOr(merged.tokens, base.tokens);
+    merged.gems = finiteOr(merged.gems, base.gems);
+    merged.goldBalls = finiteOr(merged.goldBalls, base.goldBalls);
+    merged.level = Math.max(1, Math.floor(finiteOr(merged.level, 1)));
+    merged.xp = Math.max(0, finiteOr(merged.xp, 0));
+    merged.journal = Array.isArray(merged.journal)
+      ? merged.journal.slice(0, 40).map((item) => ({
+          icon: safeString(item && item.icon, 16),
+          text: safeString(item && item.text, 240),
+          value: safeString(item && item.value, 80),
+          at: finiteOr(item && item.at, Date.now())
+        }))
+      : [];
+    merged.buffs = Array.isArray(merged.buffs)
+      ? merged.buffs.slice(0, 20).map((buff) => ({
+          id: safeString(buff && buff.id, 40),
+          label: safeString(buff && buff.label, 80),
+          icon: safeString(buff && buff.icon, 16),
+          value: finiteOr(buff && buff.value, 0),
+          until: finiteOr(buff && buff.until, 0)
+        }))
+      : [];
+    return merged;
+  };
+
   State.load = function () {
     let raw = null;
     try {
@@ -269,11 +321,12 @@
       saved = JSON.parse(raw);
     } catch (err) {
       console.warn("[state] sauvegarde corrompue, nouvelle partie", err);
+      backupCorrupted(raw);
       State.data = defaultState();
       State.isNew = true;
       return State.data;
     }
-    State.data = U.deepMerge(defaultState(), saved);
+    State.data = State.sanitize(saved);
     State.isNew = false;
     State.offlineElapsed = Math.max(0, Date.now() - (saved.lastSeen || Date.now()));
     // Anti-exploit : si l'horloge recule, on ignore.
@@ -322,11 +375,16 @@
   };
 
   State.import = function (json) {
-    const parsed = JSON.parse(json);
-    if (!parsed || typeof parsed !== "object" || typeof parsed.tokens !== "number") {
+    let parsed;
+    try {
+      parsed = JSON.parse(json);
+    } catch (err) {
+      throw new Error("Fichier JSON invalide");
+    }
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed) || typeof parsed.tokens !== "number") {
       throw new Error("Format de sauvegarde invalide");
     }
-    State.data = U.deepMerge(defaultState(), parsed);
+    State.data = State.sanitize(parsed);
     State.save(true);
     location.reload();
   };
