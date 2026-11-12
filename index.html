@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#07070f" />
+  <meta name="theme-color" content="#0a0c0b" />
   <title>Neon Jackpot — Casino incrémental</title>
   <meta name="description" content="Neon Jackpot : un casino incrémental néon, 100 % virtuel. Plinko, Blackjack, Roulette, Machines à sous, Mines, Crash et bien plus. Aucun argent réel." />
   <meta name="author" content="Neon Jackpot" />
@@ -23,14 +23,12 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="src/css/base.css?v=1.5.1" />
-  <link rel="stylesheet" href="src/css/components.css?v=1.5.1" />
-  <link rel="stylesheet" href="src/css/games.css?v=1.5.1" />
-  <link rel="stylesheet" href="src/css/animations.css?v=1.5.1" />
+  <link rel="stylesheet" href="src/css/base.css?v=2.0.0" />
+  <link rel="stylesheet" href="src/css/components.css?v=2.0.0" />
+  <link rel="stylesheet" href="src/css/games.css?v=2.0.0" />
+  <link rel="stylesheet" href="src/css/animations.css?v=2.0.0" />
+  <link rel="stylesheet" href="src/css/theme.css?v=2.0.0" />
 </head>
 <body>
   <div class="splash" id="splash" aria-hidden="true">
@@ -76,12 +74,12 @@
 
       <div class="sidebar-foot">
         <div class="profile-mini" id="profile-mini">
-          <div class="avatar" id="hud-avatar">🙂</div>
+          <div class="avatar" id="hud-avatar">N</div>
           <div class="profile-text">
             <strong id="profile-name">Joueur</strong>
             <span id="profile-title">Novice</span>
           </div>
-          <button class="icon-btn" data-route="settings" aria-label="Réglages">⚙️</button>
+          <button class="icon-btn" data-route="settings" aria-label="Réglages">⚙</button>
         </div>
         <div class="sidebar-links">
           <a href="#settings" data-route="settings">Réglages</a>
@@ -109,19 +107,19 @@
             </div>
           </div>
           <button class="currency currency-tokens" id="hud-tokens" title="Jetons">
-            <span class="coin-icon">🪙</span>
+            <span class="coin-icon" aria-hidden="true">J</span>
             <strong id="hud-tokens-value">250</strong>
             <span class="currency-pulse" id="tokens-pulse"></span>
           </button>
           <button class="currency currency-gems" id="hud-gems" title="Gemmes">
-            <span class="coin-icon">💎</span>
+            <span class="coin-icon" aria-hidden="true">◆</span>
             <strong id="hud-gems-value">0</strong>
           </button>
           <button class="currency currency-prestige hidden" id="hud-prestige" title="Monnaie de prestige">
-            <span class="coin-icon" id="hud-prestige-icon">⭐</span>
+            <span class="coin-icon" id="hud-prestige-icon" aria-hidden="true">★</span>
             <strong id="hud-prestige-value">0</strong>
           </button>
-          <button class="icon-btn sound-btn" id="btn-sound" aria-label="Activer ou couper le son">🔊</button>
+          <button class="icon-btn sound-btn" id="btn-sound" aria-label="Activer ou couper le son">♪</button>
         </div>
       </header>
 
@@ -146,31 +144,31 @@
 
   <div class="toast-root" id="toast-root" aria-live="polite"></div>
   <div class="modal-root" id="modal-root"></div>
-  <button class="bailout-fab hidden" id="bailout-fab" title="Coffre de secours">🆘</button>
+  <button class="bailout-fab hidden" id="bailout-fab" title="Coffre de secours">SOS</button>
 
   <noscript>
     <div class="noscript">Neon Jackpot a besoin de JavaScript pour faire tourner ses rouleaux.</div>
   </noscript>
 
-  <script src="src/data/bundle.js?v=1.5.1"></script>
-  <script src="src/js/utils.js?v=1.5.1"></script>
-  <script src="src/js/audio.js?v=1.5.1"></script>
-  <script src="src/js/fx.js?v=1.5.1"></script>
-  <script src="src/js/state.js?v=1.5.1"></script>
-  <script src="src/js/meta.js?v=1.5.1"></script>
-  <script src="src/js/ui.js?v=1.5.1"></script>
-  <script src="src/js/games/plinko.js?v=1.5.1"></script>
-  <script src="src/js/games/blackjack.js?v=1.5.1"></script>
-  <script src="src/js/games/roulette.js?v=1.5.1"></script>
-  <script src="src/js/games/slots.js?v=1.5.1"></script>
-  <script src="src/js/games/mines.js?v=1.5.1"></script>
-  <script src="src/js/games/crash.js?v=1.5.1"></script>
-  <script src="src/js/games/dice.js?v=1.5.1"></script>
-  <script src="src/js/games/keno.js?v=1.5.1"></script>
-  <script src="src/js/games/poker.js?v=1.5.1"></script>
-  <script src="src/js/games/horses.js?v=1.5.1"></script>
-  <script src="src/js/games/vault.js?v=1.5.1"></script>
-  <script src="src/js/pages.js?v=1.5.1"></script>
-  <script src="src/js/main.js?v=1.5.1"></script>
+  <script src="src/data/bundle.js?v=2.0.0"></script>
+  <script src="src/js/utils.js?v=2.0.0"></script>
+  <script src="src/js/audio.js?v=2.0.0"></script>
+  <script src="src/js/fx.js?v=2.0.0"></script>
+  <script src="src/js/state.js?v=2.0.0"></script>
+  <script src="src/js/meta.js?v=2.0.0"></script>
+  <script src="src/js/ui.js?v=2.0.0"></script>
+  <script src="src/js/games/plinko.js?v=2.0.0"></script>
+  <script src="src/js/games/blackjack.js?v=2.0.0"></script>
+  <script src="src/js/games/roulette.js?v=2.0.0"></script>
+  <script src="src/js/games/slots.js?v=2.0.0"></script>
+  <script src="src/js/games/mines.js?v=2.0.0"></script>
+  <script src="src/js/games/crash.js?v=2.0.0"></script>
+  <script src="src/js/games/dice.js?v=2.0.0"></script>
+  <script src="src/js/games/keno.js?v=2.0.0"></script>
+  <script src="src/js/games/poker.js?v=2.0.0"></script>
+  <script src="src/js/games/horses.js?v=2.0.0"></script>
+  <script src="src/js/games/vault.js?v=2.0.0"></script>
+  <script src="src/js/pages.js?v=2.0.0"></script>
+  <script src="src/js/main.js?v=2.0.0"></script>
 </body>
 </html>

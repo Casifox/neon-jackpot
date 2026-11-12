@@ -756,7 +756,7 @@
         lockedReels = new Array(reels()).fill(false);
       }
       App.audio.play("purchase");
-      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.45, { colors: ["#a855f7", "#ffc857"], count: 18 });
+      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.45, { colors: ["#d3ae62", "#ffc857"], count: 18 });
       App.ui.toast("Amélioration achetée", def.name, def.icon, "gold");
       App.meta.checkAchievements();
       App.state.saveSoon();

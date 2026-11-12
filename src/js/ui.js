@@ -28,6 +28,35 @@
 
   const NAV_META_ORDER = ["quests", "achievements", "collections", "shop", "synergies", "croupier", "prestige", "stats", "settings"];
 
+  // Plaques typographiques du programme imprimé (remplace les emojis de navigation).
+  const NAV_PLATES = {
+    plinko: "PL",
+    blackjack: "BJ",
+    roulette: "RO",
+    slots: "SL",
+    mines: "MI",
+    crash: "CR",
+    dice: "DÉ",
+    keno: "KE",
+    poker: "PO",
+    horses: "CH",
+    vault: "CO",
+    quests: "QU",
+    achievements: "SU",
+    collections: "CL",
+    shop: "BO",
+    synergies: "SY",
+    croupier: "CR",
+    prestige: "PR",
+    stats: "ST",
+    settings: "RÉ"
+  };
+
+  const navPlate = (id, name) => {
+    const code = NAV_PLATES[id] || String(name || "").slice(0, 2).toUpperCase();
+    return `<span class="nav-plate" aria-hidden="true">${code}</span>`;
+  };
+
   UI.PAGES = PAGES;
   UI.activeRoute = null;
   UI.currentModal = null;
@@ -95,7 +124,7 @@
     App.bus.on("rebirth:done", () => { UI.updateHud(true); UI.updateNav(); UI.refreshPage(); });
     App.bus.on("autobuy", () => UI.updateHud());
 
-    if (UI.els.version) UI.els.version.textContent = "v1.5.1";
+    if (UI.els.version) UI.els.version.textContent = "v2.0.0";
   };
 
   function buildNav() {
@@ -105,7 +134,7 @@
       const req = App.meta.gameUnlockLevel(game.id);
       const badge = locked ? `<span class="nav-badge">Niv. ${game.id === "vault" ? "??" : req}</span>` : "";
       return `<button class="nav-item ${locked ? "locked" : ""}" data-route="${game.id}" data-game-nav="${game.id}">
-        <span class="nav-icon">${game.icon}</span>
+        ${navPlate(game.id, game.name)}
         <span class="nav-name">${game.name}</span>
         ${badge}
       </button>`;
@@ -117,7 +146,7 @@
       const req = page.feature ? App.meta.featureLevel(page.feature) : 0;
       const badge = locked ? `<span class="nav-badge">Niv. ${req}</span>` : "";
       return `<button class="nav-item ${locked ? "locked" : ""}" data-route="${id}" data-meta-nav="${id}">
-        <span class="nav-icon">${page.icon}</span>
+        ${navPlate(id, page.name)}
         <span class="nav-name">${page.name}</span>
         ${badge}
       </button>`;
@@ -220,7 +249,7 @@
     App.audio.setEnabled(!!s.sound);
     App.audio.setVolume(s.volume === undefined ? 0.55 : s.volume);
     if (UI.els.sound) {
-      UI.els.sound.textContent = s.sound ? "🔊" : "🔇";
+      UI.els.sound.textContent = s.sound ? "♪" : "∅";
       UI.els.sound.setAttribute("aria-label", s.sound ? "Couper le son" : "Activer le son");
     }
   }
@@ -359,8 +388,8 @@
     const req = App.meta.featureLevel(page.feature);
     const d = App.state.data;
     UI.els.view.innerHTML = `
-      <div class="panel panel-pad" style="max-width:620px;margin:40px auto;text-align:center">
-        <div class="modal-hero-icon" style="font-size:30px">${page.icon}</div>
+      <div class="panel panel-pad locked-page">
+        <div class="locked-plate" aria-hidden="true">${page.name.charAt(0)}</div>
         <span class="eyebrow">Déblocage</span>
         <h2 style="margin:8px 0 4px">${page.name}</h2>
         <p class="muted" style="font-size:12px">Disponible au niveau ${req}.</p>
@@ -825,7 +854,7 @@
     const cards = results.map((res) => {
       if (!res) return "";
       const item = res.item;
-      const color = item.color || (res.item.setId === "avatars" ? "#8b5cf6" : "#6d28d9");
+      const color = item.color || (res.item.setId === "avatars" ? "#8e2f3c" : "#5e1e29");
       const visual = item.emoji || item.setIcon || "🎴";
       return `<div class="collectible rarity-${item.rarity}" style="--item-color:${color}">
         <div class="collectible-visual">${visual}</div>
@@ -844,7 +873,7 @@
   };
 
   UI.collectionItemModal = function (item) {
-    const color = item.color || "#8b5cf6";
+    const color = item.color || "#8e2f3c";
     UI.modal({
       title: item.name,
       subtitle: item.setName + " · " + item.rarity,

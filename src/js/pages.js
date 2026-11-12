@@ -50,8 +50,9 @@
   }
 
   function objectiveCard(icon, label, title, pct, target, route) {
+    const mark = String(label || "").trim().charAt(0).toUpperCase() || "·";
     return `<button class="objective-card" data-route="${route}" style="text-align:left">
-      <span class="objective-icon">${icon}</span>
+      <span class="objective-icon" aria-hidden="true">${mark}</span>
       <span class="objective-content">
         <small>${label}</small>
         <strong>${h(title)}</strong>
@@ -119,6 +120,8 @@
 
   function gameCard(game) {
     const d = App.state.data;
+    const order = App.meta.GAME_LIST.map((g) => g.id).concat(["vault"]);
+    const num = String(order.indexOf(game.id) + 1).padStart(2, "0");
     const locked = !App.meta.isGameUnlocked(game.id);
     const gs = d.games[game.id] ? d.games[game.id].stats : null;
     const req = App.meta.gameUnlockLevel(game.id);
@@ -130,7 +133,7 @@
       : `${fmt(gs.plays)} parties · ${fmt(gs.wins)} gains`;
     return `<article class="game-card ${locked ? "locked" : ""}" style="--accent:${game.color};--accent2:${game.color2}" data-route="${game.id}" tabindex="0" role="button" aria-label="${h(game.name)}${locked ? " (verrouillé)" : ""}">
       <div class="game-card-top">
-        <span class="game-icon">${game.icon}</span>
+        <span class="game-num">${num}</span>
         ${locked ? `<span class="badge locked">${game.id === "vault" ? "SECRET" : "NIV. " + req}</span>` : `<span class="badge live">OUVERT</span>`}
       </div>
       <h3>${game.name}</h3>
@@ -217,7 +220,7 @@
           <h2 class="hero-title">Le casino<br><span class="line-2 gradient-text">qui ne dort jamais.</span></h2>
           <p class="hero-sub">Faites tomber les billes, domptez le croupier et transformez chaque jeton en une nouvelle machine à rêver. Aucun argent réel, que des sensations fortes.</p>
           <div class="hero-actions">
-            <button class="btn btn-primary btn-lg" data-route="${nextGame.id}">${nextGame.icon} Jouer à ${nextGame.name}</button>
+            <button class="btn btn-primary btn-lg" data-route="${nextGame.id}">Jouer à ${nextGame.name}</button>
             <button class="btn btn-ghost btn-lg" data-route="quests">Voir les objectifs</button>
           </div>
           <div class="hero-stats">
@@ -229,10 +232,10 @@
         </div>
         <div class="hero-visual" aria-hidden="true">
           <div class="hero-orb"><span class="hero-seven">7</span></div>
-          <div class="hero-chip c1">🪙</div>
-          <div class="hero-chip c2">💎</div>
-          <div class="hero-chip c3">🎲</div>
-          <div class="hero-chip c4">🍀</div>
+          <div class="hero-chip c1">♠</div>
+          <div class="hero-chip c2">♥</div>
+          <div class="hero-chip c3">♦</div>
+          <div class="hero-chip c4">♣</div>
           <div class="hero-card-mini red k1">A<span style="font-size:12px">♥</span></div>
           <div class="hero-card-mini k2">7<span style="font-size:12px">♠</span></div>
         </div>
@@ -502,7 +505,7 @@
         const items = set.items.map((item) => {
           const has = !!owned[item.id];
           const equipped = d.collections.equipped[setIdForItem(item)] === item.id;
-          return `<button class="collectible rarity-${item.rarity} ${has ? "" : "locked"} ${equipped ? "equipped" : ""}" data-item="${item.id}" style="--item-color:${item.color || "#6d28d9"}" title="${h(item.name)} (${item.rarity})">
+          return `<button class="collectible rarity-${item.rarity} ${has ? "" : "locked"} ${equipped ? "equipped" : ""}" data-item="${item.id}" style="--item-color:${item.color || "#5e1e29"}" title="${h(item.name)} (${item.rarity})">
             <span class="collectible-visual">${itemVisual(item)}</span>
             <span class="collectible-name">${has ? h(item.name) : "???"}</span>
             ${has ? "" : `<span class="collectible-lock">🔒</span>`}
@@ -577,7 +580,7 @@
           subtitle: item.setName + " · " + item.rarity,
           className: "modal-sm",
           body: `<div class="modal-center">
-            <div class="collectible-visual" style="width:82px;height:82px;font-size:38px;margin:0 auto 12px;--item-color:${item.color || "#6d28d9"}">${itemVisual(item)}</div>
+            <div class="collectible-visual" style="width:82px;height:82px;font-size:38px;margin:0 auto 12px;--item-color:${item.color || "#5e1e29"}">${itemVisual(item)}</div>
             <p class="muted" style="font-size:11px">Objet de collection ${item.rarity}.</p>
             <div class="reward-row"><span class="reward-pill">+${(COLL.itemBonus * 100).toFixed(2)} % de gains</span></div>
           </div>`,

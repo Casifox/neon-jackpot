@@ -96,7 +96,7 @@
       radarBase = g.upgrades.radar ? 1 : 0;
       autoSafeLeft = g.upgrades.auto ? 1 : 0;
       App.audio.play("deal");
-      App.fx.burst(window.innerWidth / 2, window.innerHeight / 2, { colors: ["#f59e0b", "#ff4fd8"], count: 20 });
+      App.fx.burst(window.innerWidth / 2, window.innerHeight / 2, { colors: ["#f59e0b", "#e2543a"], count: 20 });
       draw();
       App.state.saveSoon();
     }
@@ -114,7 +114,7 @@
           shieldedCells.add(index);
           lastPop = index;
           App.audio.play("whoosh");
-          App.fx.rings(rect ? rect.left + rect.width / 2 : window.innerWidth / 2, rect ? rect.top + rect.height / 2 : window.innerHeight / 2, { size: 10, grow: 100, color: "#22d3ee", life: 0.6 });
+          App.fx.rings(rect ? rect.left + rect.width / 2 : window.innerWidth / 2, rect ? rect.top + rect.height / 2 : window.innerHeight / 2, { size: 10, grow: 100, color: "#7fcbb0", life: 0.6 });
           App.ui.toast("Bouclier utilisé", "La mine est neutralisée. Continuez, mais prudemment.", "🛡️", "gold");
           draw();
           return;
@@ -131,7 +131,7 @@
       if (rect) {
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
-        App.fx.burst(cx, cy, { colors: ["#4ade80", "#22d3ee", "#ffffff"], count: 18, maxSpeed: 160 });
+        App.fx.burst(cx, cy, { colors: ["#4ade80", "#7fcbb0", "#ffffff"], count: 18, maxSpeed: 160 });
         App.fx.floatingText(U.fmtMult(mult), cx, cy - 24, { className: "mult", duration: 0.9 });
       }
       if (g.upgrades.golden && Math.random() < 0.08) {
@@ -214,7 +214,7 @@
       App.audio.play("unlock");
       App.fx.rings(
         window.innerWidth / 2, window.innerHeight / 2,
-        { size: 10, grow: 300, color: "#22d3ee", life: 0.8 }
+        { size: 10, grow: 300, color: "#7fcbb0", life: 0.8 }
       );
       App.ui.toast("Radar", "Une case sûre est révélée par une onde cyan.", "📡", "gem");
       draw();
@@ -491,7 +491,7 @@
       if (key === "minesChoice" && g.mines < 1) g.mines = 3;
       if (key === "size") g.gridSize = allowedSizes()[allowedSizes().length - 1];
       App.audio.play("purchase");
-      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.4, { colors: ["#f59e0b", "#ff4fd8"], count: 15 });
+      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.4, { colors: ["#f59e0b", "#e2543a"], count: 15 });
       App.ui.toast("Amélioration achetée", def.name, def.icon, "gold");
       App.meta.checkAchievements();
       App.state.saveSoon();

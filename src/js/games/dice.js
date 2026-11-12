@@ -504,7 +504,7 @@
         g.threshold = Math.floor((minSum() + maxSum()) / 2);
       }
       App.audio.play("purchase");
-      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.4, { colors: ["#60a5fa", "#ff4fd8"], count: 16 });
+      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.4, { colors: ["#60a5fa", "#e2543a"], count: 16 });
       App.ui.toast("Amélioration achetée", def.name, def.icon, "gold");
       App.meta.checkAchievements();
       App.state.saveSoon();

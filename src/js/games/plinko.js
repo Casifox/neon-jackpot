@@ -61,10 +61,10 @@
     const currentEdge = () => CFG.tierEdges[tier()];
     const theme = () => {
       const id = table().id;
-      if (id === "neon") return { a: "#22d3ee", b: "#a855f7", c: "#ff4fd8" };
-      if (id === "pyramid") return { a: "#ffc857", b: "#fb923c", c: "#ff4fd8" };
-      if (id === "double") return { a: "#60a5fa", b: "#22d3ee", c: "#a78bfa" };
-      return { a: "#ff4fd8", b: "#8b5cf6", c: "#22d3ee" };
+      if (id === "neon") return { a: "#d3ae62", b: "#7fcbb0", c: "#e2543a" };
+      if (id === "pyramid") return { a: "#d3ae62", b: "#e2543a", c: "#f1e7d3" };
+      if (id === "double") return { a: "#7aa7c7", b: "#7fcbb0", c: "#d3ae62" };
+      return { a: "#d3ae62", b: "#7fcbb0", c: "#e2543a" };
     };
 
     function luckTotal() {
@@ -264,7 +264,7 @@
       App.audio.play(special ? "whoosh" : "click");
       if (special === "rainbow") {
         // éclat visuel à l'apparition
-        spawnParticle(W / 2, board.top - 25, { count: 18, color: "#ff4fd8", max: 300, life: 0.9 });
+        spawnParticle(W / 2, board.top - 25, { count: 18, color: "#e2543a", max: 300, life: 0.9 });
       }
       updateHeader();
       updateActive();
@@ -454,9 +454,9 @@
       const th = theme();
       ctx.clearRect(0, 0, W, H);
       const bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, "#120d24");
-      bg.addColorStop(0.5, "#0b0918");
-      bg.addColorStop(1, "#07060e");
+      bg.addColorStop(0, "#0f1512");
+      bg.addColorStop(0.5, "#0a0f0c");
+      bg.addColorStop(1, "#070a08");
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, W, H);
 
@@ -623,8 +623,8 @@
       const w = 74;
       const h = 26;
       const grad = ctx.createLinearGradient(-w / 2, 0, w / 2, h);
-      grad.addColorStop(0, "rgba(24,18,45,0.95)");
-      grad.addColorStop(1, "rgba(10,8,20,0.95)");
+      grad.addColorStop(0, "rgba(18,26,22,0.95)");
+      grad.addColorStop(1, "rgba(8,12,10,0.95)");
       roundRect(ctx, -w / 2, 0, w, h, 13);
       ctx.fillStyle = grad;
       ctx.fill();
@@ -688,7 +688,7 @@
       const max = Math.max(...profile, 1);
       const t = U.clamp(mult / max, 0, 1);
       if (t > 0.7) return { top: "rgba(255,200,87,0.9)", bottom: "rgba(120,60,8,0.95)", text: "#fff4c7", glow: "#ffc857" };
-      if (t > 0.35) return { top: "rgba(168,85,247,0.8)", bottom: "rgba(55,19,90,0.95)", text: "#f3e8ff", glow: "#a855f7" };
+      if (t > 0.35) return { top: "rgba(211,174,98,0.85)", bottom: "rgba(90,58,26,0.95)", text: "#f3ead8", glow: "#d3ae62" };
       if (t > 0.08) return { top: "rgba(59,130,246,0.65)", bottom: "rgba(18,34,68,0.95)", text: "#dbeafe", glow: "#60a5fa" };
       return { top: "rgba(45,55,80,0.75)", bottom: "rgba(12,17,30,0.95)", text: "rgba(210,220,240,0.65)", glow: "#64748b" };
     }

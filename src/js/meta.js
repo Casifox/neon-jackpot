@@ -27,7 +27,7 @@
   Meta.GAME_META = GAME_META;
   Meta.GAME_LIST = GAME_LIST;
   Meta.GAME_IDS = GAME_IDS;
-  Meta.gameMeta = (id) => GAME_META[id] || { id, name: id, icon: "🎮", color: "#8b5cf6", color2: "#ff4fd8" };
+  Meta.gameMeta = (id) => GAME_META[id] || { id, name: id, icon: "🎮", color: "#8e2f3c", color2: "#e2543a" };
   Meta.gameName = (id) => Meta.gameMeta(id).name;
 
   Meta.TITLES = [
@@ -43,7 +43,7 @@
     { min: 1000, name: "Entité du casino" }
   ];
 
-  Meta.TITLE_AVATARS = ["🙂", "😎", "🦊", "🦈", "🎩", "🧙", "🐉", "👑", "🗝️", "🌟"];
+  Meta.TITLE_AVATARS = ["N", "J", "H", "R", "A", "M", "L", "R", "G", "E"];
 
   Meta.titleFor = function (level) {
     let title = Meta.TITLES[0].name;
@@ -51,7 +51,7 @@
     Meta.TITLES.forEach((t, i) => {
       if (level >= t.min) { title = t.name; index = i; }
     });
-    return { name: title, avatar: Meta.TITLE_AVATARS[index] || "🙂", index };
+    return { name: title, avatar: Meta.TITLE_AVATARS[index] || "N", index };
   };
 
   function saveSoon() {

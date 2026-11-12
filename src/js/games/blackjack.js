@@ -367,7 +367,7 @@
         table.hands.splice(table.active + 1, 0, newHand);
         table.message = { title: "Split !", sub: "Deux mains, deux chances." };
         App.audio.play("flip");
-        App.fx.burst(window.innerWidth / 2, window.innerHeight / 2, { colors: ["#22d3ee", "#ff4fd8"], count: 20 });
+        App.fx.burst(window.innerWidth / 2, window.innerHeight / 2, { colors: ["#7fcbb0", "#e2543a"], count: 20 });
         renderTable();
         if (hand.done) {
           advanceHand();
@@ -918,7 +918,7 @@
         g.betIndex = U.clamp(g.betIndex, 0, options.length - 1);
       }
       App.audio.play("purchase");
-      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.4, { colors: ["#22d3ee", "#ffc857"], count: 16 });
+      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.4, { colors: ["#7fcbb0", "#ffc857"], count: 16 });
       App.ui.toast("Amélioration achetée", def.name + " · niveau " + (level + 1), def.icon, "gold");
       App.meta.checkAchievements();
       App.state.saveSoon();

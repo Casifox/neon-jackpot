@@ -31,9 +31,9 @@
   let hudPulseAt = 0;
 
   const COLORS = {
-    pink: "#ff4fd8",
-    violet: "#8b5cf6",
-    cyan: "#22d3ee",
+    pink: "#e2543a",
+    violet: "#8e2f3c",
+    cyan: "#7fcbb0",
     gold: "#ffc857",
     green: "#4ade80",
     red: "#ff5470",

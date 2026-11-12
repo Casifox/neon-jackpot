@@ -516,7 +516,7 @@
           App.audio.play("jackpot");
         } else {
           App.audio.play("win");
-          App.fx.burst(cx, cy, { colors: ["#ffc857", "#ff8ae2", "#22d3ee"], count: 28 });
+          App.fx.burst(cx, cy, { colors: ["#ffc857", "#f07a5d", "#7fcbb0"], count: 28 });
         }
         App.state.log("🎡", "Gain — Roulette", "+" + U.fmt(finalAmount));
       } else {
@@ -830,7 +830,7 @@
         g.chip = chip;
       }
       App.audio.play("purchase");
-      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.45, { colors: ["#ff4fd8", "#ffc857"], count: 16 });
+      App.fx.burst(window.innerWidth * 0.7, window.innerHeight * 0.45, { colors: ["#e2543a", "#ffc857"], count: 16 });
       App.ui.toast("Amélioration achetée", def.name, def.icon, "gold");
       App.meta.checkAchievements();
       App.state.saveSoon();
