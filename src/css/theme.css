@@ -275,7 +275,7 @@ h1, h2, h3, .hero-title, .section-head h2, .modal-head h2, .panel-head h3 {
   font-size: 8.5px;
   letter-spacing: 0.04em;
 }
-.nav-item.locked { opacity: 0.45; }
+.nav-item.locked { opacity: 0.58; }
 .nav-item.locked .nav-icon { border-style: dashed; }
 
 .sidebar-foot { border-top: 1px solid rgba(23, 19, 13, 0.22); }
